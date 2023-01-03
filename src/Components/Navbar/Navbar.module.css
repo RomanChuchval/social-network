@@ -1,0 +1,8 @@
+.navbar_wrapper {
+    border: red solid 1px;
+    text-align: center;
+}
+
+.navbar_item {
+    margin: 10px 0 10px 0;
+}

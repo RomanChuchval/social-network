@@ -1,0 +1,17 @@
+.profile_description {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+}
+
+.my_avatar {
+    grid-column: 1/2;
+    width: 100%;
+    border-radius: 50%;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+
+.description {
+    align-self: center;
+    margin-left: 25px;
+}

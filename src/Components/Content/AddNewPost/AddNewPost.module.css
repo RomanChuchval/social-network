@@ -1,0 +1,25 @@
+.add_post_form {
+    margin-top: 80px;
+    display: grid;
+    grid-template-rows: 50px 75px 1fr;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.add_post_title {
+    align-self: center;
+    justify-self: center;
+    font-weight: bold;
+}
+
+.add_post_input {
+
+}
+
+.add_post_button {
+    margin-top: 10px;
+    width: 15%;
+    height: 25px;
+    cursor: pointer;
+    justify-self: center;
+}

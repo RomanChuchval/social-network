@@ -1,0 +1,10 @@
+.footer_wrapper {
+    display: grid;
+    border: red solid 1px;
+    grid-column: 1/3;
+}
+
+.footer_title {
+    align-self: center;
+    justify-self: center;
+}
