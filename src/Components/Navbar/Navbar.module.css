@@ -6,3 +6,20 @@
 .navbar_item {
     margin: 10px 0 10px 0;
 }
+
+.navbar_item a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: orangered;
+}
+
+a.activeLink {
+    color: orangered;
+}
+
+
+
+

@@ -41,3 +41,8 @@ ul {
     grid-template-columns: 1fr 4fr;
     gap: 15px;
 }
+
+.content_wrapper {
+    border: red solid 1px;
+}
+
