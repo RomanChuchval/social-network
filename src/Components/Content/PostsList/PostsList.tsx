@@ -1,17 +1,18 @@
 import React from 'react';
 import style from "./PostsList.module.css";
 import {Post} from "./Post";
-import {v1} from "uuid";
+import {PostsType} from "../../../Redux/state";
 
-export const PostsList = () => {
 
-    let postsData = [
-        {id: v1(), message: 'Hello everybody. It\'s my first post here!', likesCount: 33  },
-        {id: v1(), message: 'What a day!', likesCount: 12  },
-        {id: v1(), message: 'I\'m learning TypeScript', likesCount: 55  },
-    ]
+type PostListType = {
+    state: PostsType[]
+}
 
-    let posts = postsData.map(p => <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/> )
+export const PostsList = (props: PostListType) => {
+
+
+
+    let posts = props.state.map(p => <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/> )
 
     return (
         <div className={style.posts_list}>

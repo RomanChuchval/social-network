@@ -4,14 +4,23 @@ import {ProfileDescription} from "./Profile/ProfileDescription";
 import {AddNewPost} from "./AddNewPost/AddNewPost";
 import {PostsList} from "./PostsList/PostsList";
 import {ProfileBackground} from "./Profile/ProfileBackground";
+import {ProfilePageType} from "../../Redux/state";
 
-export const Profile = () => {
+
+
+
+type ProfileType = {
+    state: ProfilePageType
+}
+
+export const Profile = (props: ProfileType) => {
+
     return (
         <div className={style.content_wrapper}>
             <ProfileBackground />
             <ProfileDescription/>
             <AddNewPost/>
-            <PostsList/>
+            <PostsList state={props.state.posts}/>
         </div>
     );
 };

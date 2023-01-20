@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './MessageList.module.css'
+
 type MessageListType = {
     message: string
     id: string
