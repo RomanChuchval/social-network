@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 
 export const NavbarLinks = () => {
     return (
-        <>
+        <div className={style.navbar_links_block}>
             <div className={style.navbar_item}>
                 <NavLink activeClassName={style.activeLink} to="/profile">Profile</NavLink>
             </div>
@@ -20,7 +20,7 @@ export const NavbarLinks = () => {
             <div className={style.navbar_item}>
                 <NavLink activeClassName={style.activeLink} to="/settings">Settings</NavLink>
             </div>
-        </>
+        </div>
     );
 };
 

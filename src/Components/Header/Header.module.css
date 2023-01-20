@@ -1,7 +1,7 @@
 .header_wrapper {
     display: grid;
     grid-template-columns: 100px 1fr 1fr;
-    border: red 1px solid;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
     grid-column: 1/3;
     gap: 20px;
 }

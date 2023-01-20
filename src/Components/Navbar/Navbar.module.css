@@ -1,6 +1,8 @@
 .navbar_wrapper {
-    border: red solid 1px;
     text-align: center;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    display: flex;
+    flex-direction: column;
 }
 
 .navbar_item {
@@ -18,6 +20,37 @@ a:hover {
 
 a.activeLink {
     color: orangered;
+}
+
+.navbar_links_block {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.navbar_friends_block {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.navbar_friend_item {
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 50px 1fr 70px;
+    align-items: center;
+}
+
+.navbar_friend_avatar {
+    width: 100%;
+}
+
+.navbar_friend_status_on {
+    color: green;
+}
+
+.navbar_friend_status_off {
+    color: red;
 }
 
 
