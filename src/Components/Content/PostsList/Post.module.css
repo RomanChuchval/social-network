@@ -3,8 +3,8 @@
     display: grid;
     grid-template-columns: 100px 1fr;
     grid-template-rows: 100px 1fr;
-    border: 1px solid black;
     border-radius: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .post_avatar {

@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './Navbar.module.css'
-import {NavbarFriendsList} from "./NavbarFriendsList";
+import {NavbarFriends} from "./NavbarFriends";
 import {NavbarLinks} from "./NavbarLinks";
 import {NavbarType} from "../../Redux/state";
 
@@ -10,11 +10,11 @@ type NavbarPropsType = {
 
 export const Navbar = (props: NavbarPropsType) => {
 
-    let navbarFriendsList = props.navbarState.map(el => <NavbarFriendsList key={el.id}
-                                                                           id={el.id}
-                                                                           name={el.name}
-                                                                           avatar={el.avatar}
-                                                                           status={el.status}
+    let navbarFriendsList = props.navbarState.map(el => <NavbarFriends key={el.id}
+                                                                       id={el.id}
+                                                                       name={el.name}
+                                                                       avatar={el.avatar}
+                                                                       status={el.status}
     />)
 
     return (

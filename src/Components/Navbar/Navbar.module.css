@@ -15,11 +15,11 @@
 }
 
 a:hover {
-    color: orangered;
+    color: #1da1f2;
 }
 
 a.activeLink {
-    color: orangered;
+    color: #1da1f2;
 }
 
 .navbar_links_block {
@@ -35,10 +35,18 @@ a.activeLink {
 }
 
 .navbar_friend_item {
+    border-radius: 10px;
+    height: 80px;
+    padding: 5px;
     margin: 10px;
     display: grid;
     grid-template-columns: 50px 1fr 70px;
     align-items: center;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.navbar_friend_item:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .navbar_friend_avatar {

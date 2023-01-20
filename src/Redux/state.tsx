@@ -45,6 +45,10 @@ let state: StateType = {
             {id: v1(), message: 'Hello everybody. It\'s my first post here!', likesCount: 33},
             {id: v1(), message: 'What a day!', likesCount: 12},
             {id: v1(), message: 'I\'m learning TypeScript', likesCount: 55},
+            {id: v1(), message: 'I\'m learning React', likesCount: 55},
+            {id: v1(), message: 'I\'m learning Redux', likesCount: 55},
+            {id: v1(), message: 'I\'m learning JavaScript', likesCount: 55},
+            {id: v1(), message: 'I\'m learning Material UI', likesCount: 55},
         ],
     },
     dialogsPage: {
@@ -70,7 +74,7 @@ let state: StateType = {
     navbar: [
         {id: v1(), name:'Andrew', avatar: avatar1, status: 'online'},
         {id: v1(), name:'Alex', avatar: avatar1, status: 'offline'},
-        {id: v1(), name:'Lera', avatar: avatar2, status: 'online'},
+        {id: v1(), name:'Lera', avatar: avatar2, status: 'offline'},
     ]
 }
 

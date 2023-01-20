@@ -8,7 +8,7 @@ type NavbarFriendsType = {
     status: string
 }
 
-export const NavbarFriendsList = (props: NavbarFriendsType) => {
+export const NavbarFriends = (props: NavbarFriendsType) => {
     return (
         <div className={style.navbar_friend_item}>
                 <img className={style.navbar_friend_avatar} src={props.avatar} alt="avatar"/>
