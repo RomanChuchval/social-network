@@ -3,10 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import state from './Redux/state'
+import {rerenderApp} from "./render";
 
 
-
-ReactDOM.render(
-    <App state={state}/>,
-    document.getElementById('root')
-);
+rerenderApp(state)

@@ -1,19 +1,12 @@
 import {v1} from "uuid";
 import avatar1 from '../assets/ava1.png'
 import avatar2 from '../assets/ava2.png'
-
+import {rerenderApp} from "../render";
 
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     navbar: NavbarType[]
-}
-export type NavbarType = {
-    id: string
-    name: string
-    avatar: string
-    status: string
-
 }
 export type ProfilePageType = {
     posts: PostsType[]
@@ -38,6 +31,14 @@ export type MessagesListType = {
     id: string
     message: string
 }
+export type NavbarType = {
+    id: string
+    name: string
+    avatar: string
+    status: string
+
+}
+
 
 let state: StateType = {
     profilePage: {
@@ -76,6 +77,12 @@ let state: StateType = {
         {id: v1(), name:'Alex', avatar: avatar1, status: 'offline'},
         {id: v1(), name:'Lera', avatar: avatar2, status: 'offline'},
     ]
+}
+
+export const addPost = (postMessage: string) => {
+    let newPost = {id: v1(), message: postMessage, likesCount: 0}
+    state.profilePage.posts = [newPost ,...state.profilePage.posts]
+    rerenderApp(state)
 }
 
 export default state
