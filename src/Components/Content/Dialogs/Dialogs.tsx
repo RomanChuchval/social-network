@@ -1,25 +1,38 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import style from './Dialogs.module.css'
 import {DialogsList} from "./DialogsList";
 import {MessageList} from "./MessageList";
-import {DialogsPageType} from "../../../Redux/state";
+import {addMessageAC, updateMessageTextAC} from "../../../Redux/dialogs-reducer";
+import {DialogsPageType, FinalActionType} from "../../../Redux/store";
 
 
 type DialogsPropsType = {
-   state: DialogsPageType
+    state: DialogsPageType
+    dispatch: (action: FinalActionType) => void
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
 
+    const ref = useRef<HTMLInputElement>(null)
 
-    let dialogsList = props.state.dialogsList.map(d => <DialogsList key={d.id} id={d.id} name={d.name} avatar={d.avatar} isOnline={d.isOnline}/>)
+    const onClickHandler = () => ref.current !== null && props.dispatch(addMessageAC())
+    const onChangeHandler = () => ref.current !== null && props.dispatch(updateMessageTextAC(ref.current.value))
+
+    let dialogsList = props.state.dialogsList.map(d => <DialogsList key={d.id} id={d.id} name={d.name}
+                                                                    avatar={d.avatar} isOnline={d.isOnline}/>)
     let messagesList = props.state.messagesList.map(m => <MessageList key={m.id} id={m.id} message={m.message}/>)
 
     return (
         <div className={style.dialogs_page}>
             <div className={style.dialogs_message_sender}>
-                <input placeholder={'Type message...'} className={style.dialogs_input}/>
-                <button className={style.dialogs_send_button}>Send</button>
+                <input
+                    onChange={onChangeHandler}
+                    ref={ref}
+                    value={props.state.newMessageText}
+                    placeholder={'Type message...'}
+                    className={style.dialogs_input}/>
+
+                <button onClick={onClickHandler} className={style.dialogs_send_button}>Send</button>
             </div>
             <div className={style.dialogs_list}>
                 {dialogsList}
