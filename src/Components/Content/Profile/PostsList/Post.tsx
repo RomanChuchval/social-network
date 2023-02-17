@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './Post.module.css'
-import avatar from "../../../assets/MyAvatar.jpg";
+import avatar from "../../../../assets/MyAvatar.jpg";
 
 type PostPropsType = {
     id: string

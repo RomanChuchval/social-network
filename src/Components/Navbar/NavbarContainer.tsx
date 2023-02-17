@@ -1,14 +1,25 @@
 import React from 'react';
 import {StoreType} from "../../Redux/store";
 import {Navbar} from "./Navbar";
+import {StoreContext} from "../../StoreContext";
 
 type NavbarContainerPropsType = {
     store: StoreType
 }
 
-export const NavbarContainer = (props: NavbarContainerPropsType) => {
-    let navbarState = props.store.getState().navbar
+export const NavbarContainer = () => {
 
-    return <Navbar navbarState={navbarState}/>
+
+    return (
+        <StoreContext.Consumer>
+            {(store) => {
+                if (store !== null) {
+                    let navbarState = store.getState().navbar
+                    return <Navbar navbarState={navbarState}/>
+                }
+            }}
+        </StoreContext.Consumer>
+
+    )
 };
 
