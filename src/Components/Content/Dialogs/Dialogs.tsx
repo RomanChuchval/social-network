@@ -2,21 +2,21 @@ import React, {useRef} from 'react';
 import style from './Dialogs.module.css'
 import {DialogsList} from "./DialogsList";
 import {MessageList} from "./MessageList";
-import {addMessageAC, updateMessageTextAC} from "../../../Redux/dialogs-reducer";
-import {DialogsPageType, FinalActionType} from "../../../Redux/store";
+import {DialogsPageType} from "../../../Redux/store";
 
 
 type DialogsPropsType = {
     state: DialogsPageType
-    dispatch: (action: FinalActionType) => void
+    addMessageAC: () => void
+    updateMessageTextAC: (messageText: string) => void
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
 
     const ref = useRef<HTMLInputElement>(null)
 
-    const onClickHandler = () => ref.current !== null && props.dispatch(addMessageAC())
-    const onChangeHandler = () => ref.current !== null && props.dispatch(updateMessageTextAC(ref.current.value))
+    const onClickHandler = () => ref.current !== null && props.addMessageAC()
+    const onChangeHandler = () => ref.current !== null && props.updateMessageTextAC(ref.current.value)
 
     let dialogsList = props.state.dialogsList.map(d => <DialogsList key={d.id} id={d.id} name={d.name}
                                                                     avatar={d.avatar} isOnline={d.isOnline}/>)

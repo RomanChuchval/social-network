@@ -1,11 +1,10 @@
 import React, {useRef} from 'react';
 import style from './AddNewPost.module.css'
-import {addPostAC, updateNewPostTextAC} from "../../../Redux/profile-reducer";
-import {FinalActionType} from "../../../Redux/store";
 
 type AddNewPostPropsType = {
-    dispatch: (action: FinalActionType) => void
     newPostText: string
+    addPostCallbackAC: () => void
+    updatePostTextCallbackAC: (postText: string) => void
 }
 
 export const AddNewPost = (props: AddNewPostPropsType) => {
@@ -13,12 +12,12 @@ export const AddNewPost = (props: AddNewPostPropsType) => {
    const ref = useRef<HTMLInputElement>(null)
     const onClickHandler = () => {
        if (ref.current !== null) {
-           props.dispatch(addPostAC())
+           props.addPostCallbackAC()
        }
     }
     const onChangeHandler = () => {
        if (ref.current !== null) {
-           props.dispatch(updateNewPostTextAC(ref.current.value))
+           props.updatePostTextCallbackAC(ref.current.value)
        }
     }
 

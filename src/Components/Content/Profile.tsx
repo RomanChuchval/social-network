@@ -4,22 +4,28 @@ import {ProfileDescription} from "./Profile/ProfileDescription";
 import {AddNewPost} from "./AddNewPost/AddNewPost";
 import {PostsList} from "./PostsList/PostsList";
 import {ProfileBackground} from "./Profile/ProfileBackground";
-import {FinalActionType, ProfilePageType} from "../../Redux/store";
+import {ProfilePageType} from "../../Redux/store";
 
 
 type ProfileType = {
     state: ProfilePageType
-    dispatch: (action: FinalActionType) => void
+    addPostCallbackAC: () => void
+    updatePostTextCallbackAC: (postText: string) => void
 }
 
 export const Profile = (props: ProfileType) => {
+
+    const addPostCallbackAC = () => props.addPostCallbackAC()
+    const updatePostTextCallbackAC = (postText: string) => props.updatePostTextCallbackAC(postText)
+
 
     return (
         <div className={style.content_wrapper}>
             <ProfileBackground/>
             <ProfileDescription/>
             <AddNewPost newPostText={props.state.newPostText}
-                        dispatch={props.dispatch}
+                        addPostCallbackAC={addPostCallbackAC}
+                        updatePostTextCallbackAC={updatePostTextCallbackAC}
             />
             <PostsList state={props.state.posts}/>
         </div>
