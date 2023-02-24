@@ -2,14 +2,8 @@ import React, {useRef} from 'react';
 import style from './Dialogs.module.css'
 import {DialogsList} from "./DialogsList";
 import {MessageList} from "./MessageList";
-import {DialogsPageType} from "../../../Redux/store";
+import {DialogsPropsType} from "./DialogsContainer";
 
-
-type DialogsPropsType = {
-    state: DialogsPageType
-    addMessageAC: () => void
-    updateMessageTextAC: (messageText: string) => void
-}
 
 export const Dialogs = (props: DialogsPropsType) => {
 

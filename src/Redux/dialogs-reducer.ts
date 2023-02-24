@@ -1,11 +1,32 @@
-import {DialogsPageType, FinalActionType} from "./store";
 import {v1} from "uuid";
 import avatar1 from "../assets/ava1.png";
 import avatar2 from "../assets/ava2.png";
 
+export type DialogsPageType = {
+    dialogsList: DialogsListType[],
+    messagesList: MessagesListType[]
+    newMessageText: string
+
+}
+export type DialogsListType = {
+    id: string
+    name: string
+    avatar: string
+    isOnline: boolean
+}
+export type MessagesListType = {
+    id: string
+    message: string
+}
+
+export type FinalActionType =
+    ReturnType<typeof updateMessageTextAC> |
+    ReturnType<typeof addMessageAC>
+
 
 const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'
 const ADD_MESSAGE = 'ADD-MESSAGE'
+
 
 let initialState: DialogsPageType = {
     dialogsList: [
@@ -19,31 +40,21 @@ let initialState: DialogsPageType = {
         {id: v1(), message: 'React'},
         {id: v1(), message: 'Redux'},
         {id: v1(), message: 'HTML'},
-        {
-            id: v1(),
-            message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, asperiores blanditiis commodi dolore doloremque ducimus enim eos, eum fugiat illo impedit laboriosam magnam magni maxime minima molestias nesciunt obcaecati odio optio perferendis perspiciatis placeat porro quam quisquam quod recusandae reiciendis rem repellendus sapiente sint temporibus ullam ut velit, veritatis voluptas voluptatem voluptatum? Ab accusamus aperiam facilis ipsam! Aperiam atque deleniti, dolorem ex, exercitationem fuga harum hic in incidunt ipsa mollitia neque nisi non quis sapiente sed soluta? Animi culpa cupiditate facere hic illum ipsa numquam quae recusandae suscipit ut. Aliquid atque dolorem est magni non quam quibusdam sequi, tempora veritatis!\n'
-        },
-        {
-            id: v1(),
-            message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, asperiores blanditiis commodi dolore doloremque ducimus enim eos, eum fugiat illo impedit laboriosam magnam magni maxime minima molestias nesciunt obcaecati odio optio perferendis perspiciatis placeat porro quam quisquam quod recusandae reiciendis rem repellendus sapiente sint temporibus ullam ut velit, veritatis voluptas voluptatem voluptatum? Ab accusamus aperiam facilis ipsam! Aperiam atque deleniti, dolorem ex, exercitationem fuga harum hic in incidunt ipsa mollitia neque nisi non quis sapiente sed soluta? Animi culpa cupiditate facere hic illum ipsa numquam quae recusandae suscipit ut. Aliquid atque dolorem est magni non quam quibusdam sequi, tempora veritatis!\n'
-        },
+        {id: v1(), message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. '},
         {id: v1(), message: 'TypeScript'},
         {id: v1(), message: 'MaterialUI'},
     ],
     newMessageText: ''
 }
 
-const dialogsReducer = (state = initialState, action: FinalActionType) => {
+const dialogsReducer = (state: DialogsPageType = initialState, action: FinalActionType): DialogsPageType => {
 
     switch (action.type) {
         case UPDATE_MESSAGE_TEXT:
-            state.newMessageText = action.payload.messageText
-            return state
+            return {...state, newMessageText: action.payload.messageText}
         case ADD_MESSAGE:
             let newMessage = {id: v1(), message: state.newMessageText}
-            state.messagesList = [newMessage, ...state.messagesList]
-            state.newMessageText = ''
-            return state
+            return {...state, newMessageText:'', messagesList: [newMessage,...state.messagesList]}
         default:
             return state
     }

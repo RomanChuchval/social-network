@@ -2,11 +2,9 @@ import React from 'react';
 import style from './Navbar.module.css'
 import {NavbarFriends} from "./NavbarFriends";
 import {NavbarLinks} from "./NavbarLinks";
-import {NavbarType} from "../../Redux/store";
+import {NavbarPropsType} from "./NavbarContainer";
 
-type NavbarPropsType = {
-    navbarState : NavbarType[]
-}
+
 
 export const Navbar = (props: NavbarPropsType) => {
 

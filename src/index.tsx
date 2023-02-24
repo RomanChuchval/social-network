@@ -1,26 +1,23 @@
 import React from 'react';
 import './index.css';
 import App from './App';
-import {StoreType} from './Redux/store'
-import store from './Redux/redux-store'
+import {store} from './Redux/redux-store'
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
-import {StoreContext} from "./StoreContext";
+import {Provider} from "react-redux";
+
+console.log(store)
 
 
-const rerenderApp = (store: StoreType) => {
     ReactDOM.render(
         <BrowserRouter>
-            <StoreContext.Provider value={store}>
+            <Provider store={store}>
                 <App/>
-            </StoreContext.Provider>
+            </Provider>
         </BrowserRouter> ,
         document.getElementById('root')
     );
-};
 
-rerenderApp(store)
 
-store.subscribe(()=>{
-    rerenderApp(store)
-})
+
+

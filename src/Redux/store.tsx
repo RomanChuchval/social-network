@@ -1,58 +1,42 @@
 import {addPostAC, updateNewPostTextAC} from "./profile-reducer";
 import {addMessageAC, updateMessageTextAC} from "./dialogs-reducer";
 
-export type StateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
-    navbar: NavbarType[]
-}
-export type ProfilePageType = {
-    posts: PostsType[]
-    newPostText: string
-}
-export type PostsType = {
-    id: string
-    message: string
-    likesCount: number
-}
-export type DialogsPageType = {
-    dialogsList: DialogsListType[],
-    messagesList: MessagesListType[]
-    newMessageText: string
-
-}
-export type DialogsListType = {
-    id: string
-    name: string
-    avatar: string
-    isOnline: boolean
-}
-export type MessagesListType = {
-    id: string
-    message: string
-}
-export type NavbarType = {
-    id: string
-    name: string
-    avatar: string
-    status: string
-
-}
+// export type StateType = {
+//     profilePage: ProfilePageType
+//     dialogsPage: DialogsPageType
+//     navbar: NavbarType[]
+// }
 
 
-export type StoreType = {
-    _state: StateType
-    _rerender: (state: StateType) => void
-    subscribe: (callback: (state: StateType) => void) => void
-    getState: () => StateType
-    dispatch: (action: FinalActionType) => void
+//  type DialogsPageType = {
+//     dialogsList: DialogsListType[],
+//     messagesList: MessagesListType[]
+//     newMessageText: string
+//
+// }
+// type DialogsListType = {
+//     id: string
+//     name: string
+//     avatar: string
+//     isOnline: boolean
+// }
+// type MessagesListType = {
+//     id: string
+//     message: string
+// }
 
-}
-export type FinalActionType =
-    ReturnType<typeof updateMessageTextAC> |
-    ReturnType<typeof addPostAC> |
-    ReturnType<typeof updateNewPostTextAC> |
-    ReturnType<typeof addMessageAC>
+
+
+//
+//  type StoreType = {
+//     _state: StateType
+//     _rerender: (state: StateType) => void
+//     subscribe: (callback: (state: StateType) => void) => void
+//     getState: () => StateType
+//     dispatch: (action: FinalActionType) => void
+// }
+
+
 
 // const store: StoreType = {
 //     _state: {
@@ -117,4 +101,4 @@ export type FinalActionType =
 //     }
 // }
 
-export default 1
+// export default 1

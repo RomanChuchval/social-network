@@ -9,6 +9,9 @@ export const NavbarLinks = () => {
                 <NavLink activeClassName={style.activeLink} to="/profile">Profile</NavLink>
             </div>
             <div className={style.navbar_item}>
+                <NavLink activeClassName={style.activeLink} to="/users">Users</NavLink>
+            </div>
+            <div className={style.navbar_item}>
                 <NavLink activeClassName={style.activeLink} to="/dialogs">Dialogs</NavLink>
             </div>
             <div className={style.navbar_item}>

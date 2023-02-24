@@ -1,9 +1,14 @@
 import {v1} from "uuid";
 import avatar1 from "../assets/ava1.png";
 import avatar2 from "../assets/ava2.png";
-import {FinalActionType, NavbarType} from "./store";
+import {FinalActionType} from "./dialogs-reducer";
 
-
+export type NavbarType = {
+    id: string
+    name: string
+    avatar: string
+    status: string
+}
 
 let initialState: NavbarType[] = [
     {id: v1(), name: 'Andrew', avatar: avatar1, status: 'online'},

@@ -1,0 +1,65 @@
+.user_wrapper {
+    display: flex;
+    gap: 10px;
+    width: 800px;
+    justify-content: flex-start;
+    box-shadow: rgb(99 99 99 / 40%) 0 2px 8px 0;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.user_ava {
+    width: 100px;
+}
+
+.user_ava_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid black;
+    padding: 10px;
+}
+
+.user_info_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user_info {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.user_info_address {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.btn_unfollow {
+    width: 80px;
+    background-color: #1da1f2;
+    height: 25px;
+    color: #e1e8ed;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.btn_follow {
+    width: 80px;
+    background-color: green;
+    height: 25px;
+    color: #e1e8ed;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+}
