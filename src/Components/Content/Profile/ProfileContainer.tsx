@@ -33,7 +33,7 @@ export type mapDispatchPropsType = {
     addPostCallbackAC: () => void
     updatePostTextCallbackAC: (postText: string) => void
 }
-
+console.log('Profile container')
 export const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
         state: state.profilePage

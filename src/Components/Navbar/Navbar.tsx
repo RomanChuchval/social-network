@@ -7,6 +7,7 @@ import {NavbarPropsType} from "./NavbarContainer";
 
 
 export const Navbar = (props: NavbarPropsType) => {
+    console.log('Navbar')
 
     let navbarFriendsList = props.navbarState.map(el => <NavbarFriends key={el.id}
                                                                        id={el.id}

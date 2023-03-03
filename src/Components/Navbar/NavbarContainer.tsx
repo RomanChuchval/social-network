@@ -6,21 +6,6 @@ import {NavbarType} from "../../Redux/navbar-reducer";
 import {Dispatch} from "redux";
 
 
-// export const NavbarContainer = () => {
-//
-//
-//     return (
-//         <StoreContext.Consumer>
-//             {(store) => {
-//                 if (store !== null) {
-//                     let navbarState = store.getState().navbar
-//                     return <Navbar navbarState={navbarState}/>
-//                 }
-//             }}
-//         </StoreContext.Consumer>
-//
-//     )
-// };
 export type NavbarPropsType = mapStatePropsType
 
 export type mapStatePropsType = {

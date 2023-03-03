@@ -3,6 +3,7 @@ import style from './Header.module.css'
 import logo from '../../assets/network_logo.png'
 
 export const Header = () => {
+    console.log('Header')
     return (
         <div className={style.header_wrapper}>
             <img className={style.header_logo} src={logo} alt=""/>
