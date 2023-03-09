@@ -1,20 +1,23 @@
-import maleAvatar from '../assets/ava1.png'
-import femaleAvatar from '../assets/ava2.png'
-import {v1} from "uuid";
+
 
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 
-type FinalActionType = FollowACType | UnfollowACType | SetUsersACType
+type FinalActionType = FollowACType | UnfollowACType | SetUsersACType | setCurrentPageACType
 
 type FollowACType = ReturnType<typeof followAC>
 type UnfollowACType = ReturnType <typeof unFollowAC>
 type SetUsersACType = ReturnType <typeof setUsersAC>
+type setCurrentPageACType = ReturnType <typeof setCurrentPageAC>
 
 export type UsersDataType = {
     users: Array<UserType>
+    totalUsersCount: number
+    usersOnPage: number
+    currentPage: number
 }
 export type UserType = {
     name:string
@@ -31,84 +34,12 @@ type UserPhotoType = {
 }
 
 const initialState: UsersDataType = {
-    users: []
+    users: [],
+    totalUsersCount: 200,
+    usersOnPage: 10,
+    currentPage: 1
 }
 
-// export type UsersStateType = {
-//     users: Array<UserType>
-// }
-// export type UserType = {
-//     fullName: string
-//     userId: string
-//     status: string
-//     avatar: string
-//     isFollow: boolean
-//     address: UserAddressType
-// }
-// type UserAddressType = {
-//     country: string
-//     city: string
-// }
-//
-// const initialState: UsersStateType = {
-//     users: [
-//         // {
-//         //     fullName: 'Victor',
-//         //     userId: v1(),
-//         //     status: 'IT-INCUBATOR',
-//         //     avatar: maleAvatar,
-//         //     isFollow: true,
-//         //     address: {
-//         //         country: 'Belarus',
-//         //         city: 'Minsk'
-//         //     }
-//         // },
-//         // {
-//         //     fullName: 'Roman',
-//         //     userId: v1(),
-//         //     status: 'Waiting for new F1 season.',
-//         //     avatar: maleAvatar,
-//         //     isFollow: false,
-//         //     address: {
-//         //         country: 'Belarus',
-//         //         city: 'Minsk'
-//         //     }
-//         // },
-//         // {
-//         //     fullName: 'Lera',
-//         //     userId: v1(),
-//         //     status: 'I Love Nord and Belka',
-//         //     avatar: femaleAvatar,
-//         //     isFollow: true,
-//         //     address: {
-//         //         country: 'Belarus',
-//         //         city: 'Minsk'
-//         //     }
-//         // },
-//         // {
-//         //     fullName: 'Valera',
-//         //     userId: v1(),
-//         //     status: 'Learning RegEx as beast!',
-//         //     avatar: maleAvatar,
-//         //     isFollow: true,
-//         //     address: {
-//         //         country: 'Belarus',
-//         //         city: 'Minsk'
-//         //     }
-//         // },
-//         // {
-//         //     fullName: 'Natasha',
-//         //     userId: v1(),
-//         //     status: 'I hate ChatGPT!!!!',
-//         //     avatar: femaleAvatar,
-//         //     isFollow: true,
-//         //     address: {
-//         //         country: 'Belarus',
-//         //         city: 'Minsk'
-//         //     }
-//         // },
-//     ]
-// }
 export const usersReducer = (state: UsersDataType = initialState, action: FinalActionType): UsersDataType => {
 
     switch (action.type) {
@@ -124,6 +55,9 @@ export const usersReducer = (state: UsersDataType = initialState, action: FinalA
                     ? {...u, followed: action.payload.isFollow}
                     : u
                 )}
+        case SET_CURRENT_PAGE: {
+            return {...state, currentPage: action.payload.pageNumber}
+        }
         default: return state
         }
     }
@@ -155,6 +89,15 @@ export const setUsersAC = (usersArray: Array<UserType>) => {
         type: SET_USERS,
         payload: {
             usersArray: usersArray
+        }
+    } as const
+}
+
+export const setCurrentPageAC = (pageNumber: number) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        payload: {
+            pageNumber
         }
     } as const
 }

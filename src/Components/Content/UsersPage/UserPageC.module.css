@@ -1,0 +1,24 @@
+.pagination_btn_container {
+    height: 50px;
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.page_button {
+    width: 25px;
+    height: 25px;
+    border-radius: 40%;
+    cursor: pointer;
+    background-color: #c9cbd9;
+}
+
+.page_button:hover {
+    background-color: #1d72f2;
+}
+
+.selected_page {
+    background-color: #1da1f2;
+}

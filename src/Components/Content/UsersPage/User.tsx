@@ -24,7 +24,7 @@ const User: React.FC<UserPropsType> = (
         <div className={s.user_wrapper}>
             <div className={s.user_ava_wrapper}>
                 <div>
-                    <img className={s.user_ava} src={userData.photos.small ? '' : maleAvatar} alt="UserAva"/>
+                    <img className={s.user_ava} src={userData.photos.small ? userData.photos.small : maleAvatar} alt="UserAva"/>
                 </div>
                 <div>
                     {userData.followed
