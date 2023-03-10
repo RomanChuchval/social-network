@@ -9,7 +9,7 @@ import {
     UserType
 } from "../../../Redux/users-reducer";
 import {Dispatch} from "redux";
-import UsersPageC from "./UsersPageС";
+import UsersPageAPI from "./UsersPageAPI";
 
 export type UserPagePropsType = MapStatePropsType & MapDispatchPropsType
 
@@ -38,4 +38,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersPageC)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersPageAPI)
