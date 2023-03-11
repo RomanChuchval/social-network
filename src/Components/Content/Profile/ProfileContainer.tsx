@@ -1,50 +1,61 @@
-import React from 'react';
+import React from "react";
 import {Profile} from "./Profile";
-import {addPostAC, ProfilePageType, updateNewPostTextAC} from "../../../Redux/profile-reducer";
-import {connect} from "react-redux";
+import axios from "axios";
+import {addPostAC, ProfilePageType, setUserProfileInfoAC, updateNewPostTextAC, UserProfileInfoType} from "../../../Redux/profile-reducer";
 import {AppStateType} from "../../../Redux/redux-store";
-import {Dispatch} from "redux";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
-// export const ProfileContainer = () => {
-//
-//     return (
-//         <StoreContext.Consumer>
-//             {(store) => {
-//                 if (store !== null) {
-//                     let profilePageState = store.getState().profilePage
-//                     const onAddPostAC = () => store.dispatch(addPostAC())
-//                     const onUpdatePostTextAC = (postText: string) => store.dispatch(updateNewPostTextAC(postText))
-//
-//                     return <Profile state={profilePageState}
-//                                     addPostCallbackAC={onAddPostAC}
-//                                     updatePostTextCallbackAC={onUpdatePostTextAC}/>
-//                 }}}
-//         </StoreContext.Consumer>
-//     )
-// };
+export class ProfileContainer extends React.Component<OwnPropsType> {
 
-export type ProfilePropsType = mapStatePropsType & mapDispatchPropsType
+    componentDidMount() {
+        let userId = this.props.match.params.userId
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+            .then(response => {
+                this.props.setUserProfileInfoAC(response.data)
+            })
+    }
+
+    render() {
+        return (
+            <Profile state={this.props.state}
+                     addPostAC={this.props.addPostAC}
+                     updateNewPostTextAC={this.props.updateNewPostTextAC}
+            />
+        )
+    }
+}
+
+// ============           Containers             ============== //
+
+type OwnPropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
+
+type PathParamsType = {
+    userId: string
+}
+
+type ProfilePropsType = mapStatePropsType & mapDispatchPropsType
 
 export type mapStatePropsType = {
     state: ProfilePageType
 }
 
 export type mapDispatchPropsType = {
-    addPostCallbackAC: () => void
-    updatePostTextCallbackAC: (postText: string) => void
+    addPostAC: () => void
+    updateNewPostTextAC: (postText: string) => void
+    setUserProfileInfoAC: (profileInfo: UserProfileInfoType) => void
 }
-console.log('Profile container')
-export const mapStateToProps = (state: AppStateType): mapStatePropsType => {
+
+const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
         state: state.profilePage
     }
 }
 
-export const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
-    return {
-        addPostCallbackAC: () => dispatch(addPostAC()),
-        updatePostTextCallbackAC: (postText: string) => dispatch(updateNewPostTextAC(postText))
-    }
-}
+let ProfileContainerComponentWithUrlInfo = withRouter(ProfileContainer)
 
-export const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect(mapStateToProps, {
+    addPostAC,
+    setUserProfileInfoAC,
+    updateNewPostTextAC,
+})(ProfileContainerComponentWithUrlInfo)

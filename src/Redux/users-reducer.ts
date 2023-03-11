@@ -5,19 +5,26 @@ const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_IS_LOADING = 'SET_IS_LOADING'
 
-type FinalActionType = FollowACType | UnfollowACType | SetUsersACType | setCurrentPageACType
+type FinalActionType = FollowACType
+    | UnfollowACType
+    | SetUsersACType
+    | setCurrentPageACType
+    | setIsLoadingACType
 
 type FollowACType = ReturnType<typeof followAC>
 type UnfollowACType = ReturnType <typeof unFollowAC>
 type SetUsersACType = ReturnType <typeof setUsersAC>
 type setCurrentPageACType = ReturnType <typeof setCurrentPageAC>
+type setIsLoadingACType = ReturnType <typeof setIsLoadingAC>
 
 export type UsersDataType = {
     users: Array<UserType>
     totalUsersCount: number
     usersOnPage: number
     currentPage: number
+    isLoading: boolean
 }
 export type UserType = {
     name:string
@@ -37,7 +44,8 @@ const initialState: UsersDataType = {
     users: [],
     totalUsersCount: 200,
     usersOnPage: 10,
-    currentPage: 1
+    currentPage: 1,
+    isLoading: false
 }
 
 export const usersReducer = (state: UsersDataType = initialState, action: FinalActionType): UsersDataType => {
@@ -57,6 +65,9 @@ export const usersReducer = (state: UsersDataType = initialState, action: FinalA
                 )}
         case SET_CURRENT_PAGE: {
             return {...state, currentPage: action.payload.pageNumber}
+        }
+        case SET_IS_LOADING: {
+            return {...state, isLoading: action.payload.isLoading}
         }
         default: return state
         }
@@ -98,6 +109,15 @@ export const setCurrentPageAC = (pageNumber: number) => {
         type: SET_CURRENT_PAGE,
         payload: {
             pageNumber
+        }
+    } as const
+}
+
+export const setIsLoadingAC = (isLoading: boolean) => {
+    return {
+        type: SET_IS_LOADING,
+        payload: {
+            isLoading
         }
     } as const
 }

@@ -1,0 +1,38 @@
+
+.loader {
+    animation: spin 2s linear infinite;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: conic-gradient(from 90deg at 50% 50%, rgba(255, 255, 255, 0) 20deg, #1da1f2 360deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 0 0 0 25px;
+}
+
+.loader:after {
+    content: '';
+    position: absolute;
+    background-color: #1da1f2;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    top: 44%;
+    right: 0;
+}
+
+.loader_center {
+    width: 100px;
+    height: 100px;
+    background-color: #e1e8ed ;
+    border-radius: 50%;
+
+}
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

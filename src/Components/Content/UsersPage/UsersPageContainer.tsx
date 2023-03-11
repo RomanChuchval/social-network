@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/redux-store";
 import {
     followAC,
-    setCurrentPageAC,
+    setCurrentPageAC, setIsLoadingAC,
     setUsersAC,
     unFollowAC,
     UsersDataType,
@@ -22,6 +22,7 @@ type MapDispatchPropsType = {
     unfollow: (userId: number) => void
     setUsers: (data: Array<UserType>) => void
     setCurrentPage: (pageNumber: number) => void
+    setIsLoading: (isLoading: boolean) => void
 }
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
@@ -34,7 +35,8 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
         follow: (userId) => dispatch(followAC(userId)),
         unfollow: (userId) => dispatch(unFollowAC(userId)),
         setUsers: (data) => dispatch(setUsersAC(data)),
-        setCurrentPage: (pageNumber: number) => dispatch(setCurrentPageAC(pageNumber))
+        setCurrentPage: (pageNumber: number) => dispatch(setCurrentPageAC(pageNumber)),
+        setIsLoading: (isLoading: boolean) => dispatch(setIsLoadingAC(isLoading))
     }
 }
 
