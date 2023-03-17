@@ -2,13 +2,12 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/redux-store";
 import {
     followAC,
-    setCurrentPageAC, setIsLoadingAC,
+    setCurrentPageAC, setIsFollowingAC, setIsLoadingAC,
     setUsersAC,
     unFollowAC,
     UsersDataType,
     UserType
 } from "../../../Redux/users-reducer";
-import {Dispatch} from "redux";
 import UsersPageAPI from "./UsersPageAPI";
 
 export type UserPagePropsType = MapStatePropsType & MapDispatchPropsType
@@ -18,11 +17,12 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setUsers: (data: Array<UserType>) => void
-    setCurrentPage: (pageNumber: number) => void
-    setIsLoading: (isLoading: boolean) => void
+    followAC: (userId: number) => void
+    unFollowAC: (userId: number) => void
+    setUsersAC: (data: Array<UserType>) => void
+    setCurrentPageAC: (pageNumber: number) => void
+    setIsLoadingAC: (isLoading: boolean) => void
+    setIsFollowingAC: (isFollowing: boolean, userId: number) => void
 }
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
@@ -30,14 +30,17 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-    return {
-        follow: (userId) => dispatch(followAC(userId)),
-        unfollow: (userId) => dispatch(unFollowAC(userId)),
-        setUsers: (data) => dispatch(setUsersAC(data)),
-        setCurrentPage: (pageNumber: number) => dispatch(setCurrentPageAC(pageNumber)),
-        setIsLoading: (isLoading: boolean) => dispatch(setIsLoadingAC(isLoading))
-    }
-}
+// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+//     return {
+//         follow: (userId) => dispatch(followAC(userId)),
+//         unfollow: (userId) => dispatch(unFollowAC(userId)),
+//         setUsers: (data) => dispatch(setUsersAC(data)),
+//         setCurrentPage: (pageNumber: number) => dispatch(setCurrentPageAC(pageNumber)),
+//         setIsLoading: (isLoading: boolean) => dispatch(setIsLoadingAC(isLoading)),
+//         setIsFollowing: (isFollowing: boolean, userId: number) => dispatch(setIsFollowingAC(isFollowing, userId))
+//     }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersPageAPI)
+export default connect(mapStateToProps, {
+    followAC, unFollowAC, setUsersAC, setCurrentPageAC, setIsLoadingAC, setIsFollowingAC
+})(UsersPageAPI)

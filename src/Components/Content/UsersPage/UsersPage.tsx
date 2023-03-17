@@ -12,6 +12,8 @@ type UsersPagePropsType ={
     usersOnPage: number
     currentPage: number
     getNewUsersPage: (pageNumber: number) => void
+    isFollowing: Array<number>
+    setIsFollowing: (isFollowing: boolean, userId: number) => void
 }
 
 const UsersPage: React.FC<UsersPagePropsType> = (
@@ -22,7 +24,9 @@ const UsersPage: React.FC<UsersPagePropsType> = (
         totalUsersCount,
         usersOnPage,
         currentPage,
-        getNewUsersPage
+        getNewUsersPage,
+        isFollowing,
+        setIsFollowing
     }
 ) => {
 
@@ -42,7 +46,10 @@ const UsersPage: React.FC<UsersPagePropsType> = (
         .map(user => <User key={user.id}
                            follow={follow}
                            unfollow={unfollow}
-                           userData={user}/>)
+                           userData={user}
+                           isFollowing={isFollowing}
+                           setIsFollowing={setIsFollowing}
+        />)
 
     return (
         <>

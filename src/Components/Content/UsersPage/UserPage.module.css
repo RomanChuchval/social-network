@@ -1,7 +1,9 @@
 .pagination_btn_container {
-    height: 50px;
+    max-width: 100%;
+    min-height: 50px;
     margin: 15px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 20px;
