@@ -1,20 +1,16 @@
 import React from 'react'
 import {Header} from "./Header";
 import {connect} from "react-redux";
-import {AuthStateType, setUserAuthAC} from "../../Redux/auth-reducer";
+import {AuthStateType, setUserAuthTC} from "../../Redux/auth-reducer";
 import {AppStateType} from "../../Redux/redux-store";
-import axios from "axios";
-import {authAPI} from "../../DAL/API";
+
 
 type HeaderContainerPropsType = MapStateToPropsType & MapDispatchToProps
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 
     componentDidMount() {
-        authAPI.authMe()
-            .then(data => {
-                this.props.setUserAuthAC(data.data)
-            })
+        this.props.setUserAuthTC()
     }
 
     render() {
@@ -24,12 +20,15 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
     }
 }
 
+
+// ========== Container ========== //
+
 export type MapStateToPropsType = {
     authState: AuthStateType
 }
 
 export type MapDispatchToProps = {
-    setUserAuthAC: (data: AuthStateType) => void
+    setUserAuthTC: () => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -37,4 +36,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         authState: state.userAuth
     }
 }
-export default connect(mapStateToProps, {setUserAuthAC})(HeaderContainer)
+export default connect(mapStateToProps, {setUserAuthTC})(HeaderContainer)

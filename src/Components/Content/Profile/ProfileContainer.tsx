@@ -1,7 +1,12 @@
 import React from "react";
 import {Profile} from "./Profile";
-import axios from "axios";
-import {addPostAC, ProfilePageType, setUserProfileInfoAC, updateNewPostTextAC, UserProfileInfoType} from "../../../Redux/profile-reducer";
+
+import {
+    addPostAC,
+    getUserProfileInfoTC,
+    ProfilePageType,
+    updateNewPostTextAC,
+} from "../../../Redux/profile-reducer";
 import {AppStateType} from "../../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
@@ -9,11 +14,8 @@ import {connect} from "react-redux";
 export class ProfileContainer extends React.Component<OwnPropsType> {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
-                this.props.setUserProfileInfoAC(response.data)
-            })
+        console.log(this.props)
+        this.props.getUserProfileInfoTC(this.props.match.params.userId)
     }
 
     render() {
@@ -26,7 +28,7 @@ export class ProfileContainer extends React.Component<OwnPropsType> {
     }
 }
 
-// ============           Containers             ============== //
+// ============  Containers   ============== //
 
 type OwnPropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
 
@@ -43,7 +45,7 @@ export type mapStatePropsType = {
 export type mapDispatchPropsType = {
     addPostAC: () => void
     updateNewPostTextAC: (postText: string) => void
-    setUserProfileInfoAC: (profileInfo: UserProfileInfoType) => void
+    getUserProfileInfoTC: (userId: string) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
@@ -56,6 +58,6 @@ let ProfileContainerComponentWithUrlInfo = withRouter(ProfileContainer)
 
 export default connect(mapStateToProps, {
     addPostAC,
-    setUserProfileInfoAC,
+    getUserProfileInfoTC,
     updateNewPostTextAC,
 })(ProfileContainerComponentWithUrlInfo)

@@ -1,12 +1,10 @@
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/redux-store";
 import {
-    followAC,
-    setCurrentPageAC, setIsFollowingAC, setIsLoadingAC,
-    setUsersAC,
-    unFollowAC,
+    followUserTC, getNewUsersPageTC, getUsersTC,
+    setCurrentPageAC,
+    unFollowUserTC,
     UsersDataType,
-    UserType
 } from "../../../Redux/users-reducer";
 import UsersPageAPI from "./UsersPageAPI";
 
@@ -16,13 +14,12 @@ type MapStatePropsType = {
     usersPage: UsersDataType
 }
 
-type MapDispatchPropsType = {
-    followAC: (userId: number) => void
-    unFollowAC: (userId: number) => void
-    setUsersAC: (data: Array<UserType>) => void
+export type MapDispatchPropsType = {
     setCurrentPageAC: (pageNumber: number) => void
-    setIsLoadingAC: (isLoading: boolean) => void
-    setIsFollowingAC: (isFollowing: boolean, userId: number) => void
+    getUsersTC: (usersOnPage: number, currentPage: number) => void
+    getNewUsersPageTC: (pageNumber: number, usersOnPage: number) => void
+    followUserTC: (userId: number) => void
+    unFollowUserTC: (userId: number) => void
 }
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
@@ -30,17 +27,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-//     return {
-//         follow: (userId) => dispatch(followAC(userId)),
-//         unfollow: (userId) => dispatch(unFollowAC(userId)),
-//         setUsers: (data) => dispatch(setUsersAC(data)),
-//         setCurrentPage: (pageNumber: number) => dispatch(setCurrentPageAC(pageNumber)),
-//         setIsLoading: (isLoading: boolean) => dispatch(setIsLoadingAC(isLoading)),
-//         setIsFollowing: (isFollowing: boolean, userId: number) => dispatch(setIsFollowingAC(isFollowing, userId))
-//     }
-// }
-
 export default connect(mapStateToProps, {
-    followAC, unFollowAC, setUsersAC, setCurrentPageAC, setIsLoadingAC, setIsFollowingAC
+    setCurrentPageAC,
+    getUsersTC, getNewUsersPageTC, followUserTC, unFollowUserTC
 })(UsersPageAPI)

@@ -3,37 +3,22 @@ import {UserType} from "../../../Redux/users-reducer";
 import s from './User.module.css'
 import maleAvatar from '../../../assets/ava1.png'
 import {NavLink} from "react-router-dom";
-import {followAPI} from "../../../DAL/API";
 
 type UserPropsType = {
     userData: UserType
     follow: (id: number) => void
     unfollow: (id: number) => void
     isFollowing: Array<number>
-    setIsFollowing: (isFollowing: boolean, userId: number) => void
 }
 const User: React.FC<UserPropsType> = (
-    {userData, follow, unfollow, isFollowing, setIsFollowing}
+    {userData, follow, unfollow, isFollowing}
 ) => {
 
     const onFollowHandler = () => {
-        setIsFollowing(true, userData.id)
-        followAPI.followUser(userData.id)
-            .then(data => {
-                if (data.resultCode === 0)
-                    follow(userData.id)
-            })
-            .finally(()=> setIsFollowing(false, userData.id))
-
+        follow(userData.id)
     }
     const onUnFollowHandler = () => {
-        setIsFollowing(true, userData.id)
-        followAPI.unfollowUser(userData.id)
-            .then(data => {
-                if (data.resultCode === 0)
-                    unfollow(userData.id)
-            })
-            .finally(()=> setIsFollowing(false, userData.id))
+       unfollow(userData.id)
     }
 
      const isButtonDisable = isFollowing.some(id => id === userData.id)

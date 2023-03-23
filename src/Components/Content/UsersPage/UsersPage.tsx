@@ -4,16 +4,15 @@ import {UserType} from "../../../Redux/users-reducer";
 import s from "./UserPage.module.css";
 import {v1} from "uuid";
 
-type UsersPagePropsType ={
+type UsersPagePropsType = {
     users: Array<UserType>
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
     totalUsersCount: number
     usersOnPage: number
     currentPage: number
-    getNewUsersPage: (pageNumber: number) => void
     isFollowing: Array<number>
-    setIsFollowing: (isFollowing: boolean, userId: number) => void
+    getNewUsersPage: (pageNumber: number) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 }
 
 const UsersPage: React.FC<UsersPagePropsType> = (
@@ -25,8 +24,7 @@ const UsersPage: React.FC<UsersPagePropsType> = (
         usersOnPage,
         currentPage,
         getNewUsersPage,
-        isFollowing,
-        setIsFollowing
+        isFollowing
     }
 ) => {
 
@@ -35,6 +33,7 @@ const UsersPage: React.FC<UsersPagePropsType> = (
     for (let i = 1; i <= pagesCount; i++) {
         pagesButtonsCount.push(i)
     }
+
     const pagesButtons = pagesButtonsCount.map(btn => {
         const buttonClassName = `${s.page_button} ${currentPage === btn ? s.selected_page : ''}`
         return <button key={v1()} className={buttonClassName} onClick={() => getNewUsersPage(btn)}>
@@ -42,14 +41,12 @@ const UsersPage: React.FC<UsersPagePropsType> = (
         </button>
     })
 
-    const userList = users
-        .map(user => <User key={user.id}
-                           follow={follow}
-                           unfollow={unfollow}
-                           userData={user}
-                           isFollowing={isFollowing}
-                           setIsFollowing={setIsFollowing}
-        />)
+    const usersList = users.map(user => <User key={user.id}
+                                              follow={follow}
+                                              unfollow={unfollow}
+                                              userData={user}
+                                              isFollowing={isFollowing}
+    />)
 
     return (
         <>
@@ -57,7 +54,7 @@ const UsersPage: React.FC<UsersPagePropsType> = (
                 {pagesButtons}
             </div>
             <div>
-                {userList}
+                {usersList}
             </div>
         </>
 

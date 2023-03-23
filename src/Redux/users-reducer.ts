@@ -1,3 +1,6 @@
+import { usersAPI} from "../DAL/API";
+import {Dispatch} from "redux";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -5,7 +8,7 @@ const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_IS_LOADING = 'SET_IS_LOADING'
 const SET_IS_FOLLOWING = 'SET_IS_FOLLOWING'
 
-type FinalActionType = FollowACType
+type UsersActionsTypes = FollowACType
     | UnfollowACType
     | SetUsersACType
     | setCurrentPageACType
@@ -50,7 +53,7 @@ const initialState: UsersDataType = {
     isFollowing: []
 }
 
-export const usersReducer = (state: UsersDataType = initialState, action: FinalActionType): UsersDataType => {
+export const usersReducer = (state: UsersDataType = initialState, action: UsersActionsTypes): UsersDataType => {
 
     switch (action.type) {
         case SET_USERS:
@@ -97,7 +100,6 @@ export const followAC = (userId: number) => {
         }
     } as const
 }
-
 export const unFollowAC = (userId: number) => {
     return {
         type: UNFOLLOW,
@@ -107,7 +109,6 @@ export const unFollowAC = (userId: number) => {
         }
     } as const
 }
-
 export const setUsersAC = (usersArray: Array<UserType>) => {
     return {
         type: SET_USERS,
@@ -116,7 +117,6 @@ export const setUsersAC = (usersArray: Array<UserType>) => {
         }
     } as const
 }
-
 export const setCurrentPageAC = (pageNumber: number) => {
     return {
         type: SET_CURRENT_PAGE,
@@ -125,7 +125,6 @@ export const setCurrentPageAC = (pageNumber: number) => {
         }
     } as const
 }
-
 export const setIsLoadingAC = (isLoading: boolean) => {
     return {
         type: SET_IS_LOADING,
@@ -134,7 +133,6 @@ export const setIsLoadingAC = (isLoading: boolean) => {
         }
     } as const
 }
-
 export const setIsFollowingAC = (isFollowing: boolean, userId: number) => {
     return {
         type: SET_IS_FOLLOWING,
@@ -144,3 +142,54 @@ export const setIsFollowingAC = (isFollowing: boolean, userId: number) => {
         }
     } as const
 }
+
+// ================= Thunk creators ================= //
+
+export const getUsersTC = (usersOnPage: number, currentPage: number) => {
+
+    return (dispatch: Dispatch) => {
+        dispatch(setIsLoadingAC(true))
+        usersAPI.getUsers(usersOnPage, currentPage)
+            .then(data => dispatch(setUsersAC(data.items)))
+            .finally(() => dispatch(setIsLoadingAC(false)))
+    }
+}
+
+export const getNewUsersPageTC = (pageNumber: number, usersOnPage: number) => {
+
+    return (dispatch: Dispatch) => {
+        dispatch(setIsLoadingAC(true))
+        dispatch(setCurrentPageAC(pageNumber))
+        usersAPI.getUsers(usersOnPage, pageNumber)
+            .then(data => dispatch(setUsersAC(data.items)))
+            .finally(() => dispatch(setIsLoadingAC(false)))
+    }
+}
+
+export const followUserTC = (userId: number) => {
+
+    return (dispatch: Dispatch) => {
+        dispatch(setIsFollowingAC(true, userId))
+        usersAPI.followUser(userId)
+            .then(data => {
+                if (data.resultCode === 0)
+                    dispatch(followAC(userId))
+            })
+            .finally(()=> dispatch(setIsFollowingAC(false, userId)))
+    }
+}
+
+export const unFollowUserTC = (userId: number) => {
+
+    return (dispatch: Dispatch) => {
+        dispatch(setIsFollowingAC(true, userId))
+        usersAPI.unfollowUser(userId)
+            .then(data => {
+                if (data.resultCode === 0)
+                    dispatch(unFollowAC(userId))
+            })
+            .finally(()=> dispatch(setIsFollowingAC(false, userId)))
+    }
+}
+
+

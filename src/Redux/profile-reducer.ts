@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {Dispatch} from "redux";
+import {usersAPI} from "../DAL/API";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -56,7 +58,7 @@ let initialState: ProfilePageType = {
     userProfileInfo: null
 }
 
-const profileReducer = (state:ProfilePageType = initialState, action: FinalActionType): ProfilePageType => {
+export const profileReducer = (state:ProfilePageType = initialState, action: FinalActionType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {id: v1(), message: state.newPostText, likesCount: 0}
@@ -92,4 +94,19 @@ export const setUserProfileInfoAC = (userProfileInfo: UserProfileInfoType) => {
         }
     } as const
 }
-export default profileReducer;
+
+// ========== ThunkCreators ========== //
+
+export const getUserProfileInfoTC = (userId: string) => {
+
+    return (dispatch: Dispatch) => {
+        usersAPI.getUserProfileInfo(userId)
+            .then(data => {
+                dispatch(setUserProfileInfoAC(data))
+            })
+    }
+}
+
+
+
+

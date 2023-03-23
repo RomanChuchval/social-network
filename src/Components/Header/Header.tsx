@@ -8,7 +8,7 @@ import {NavLink} from "react-router-dom";
 type HeaderPropsType = MapStateToPropsType & MapDispatchToProps
 export const Header: React.FC<HeaderPropsType> = (
     {
-        authState, setUserAuthAC
+        authState
     }
 ) => {
 

@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {authAPI} from "../DAL/API";
+
 type ActionsType = SetUserAuthAT
 
 
@@ -39,4 +42,17 @@ export const setUserAuthAC = (data: AuthStateType) => {
             data
         }
     } as const
+}
+
+// ================= Thunk creators ================= //
+
+
+export const setUserAuthTC = () => {
+
+    return (dispatch: Dispatch) => {
+        authAPI.authMe()
+            .then(data => {
+                dispatch(setUserAuthAC(data.data))
+            })
+    }
 }
