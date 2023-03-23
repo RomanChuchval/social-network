@@ -12,18 +12,25 @@ export const Header: React.FC<HeaderPropsType> = (
     }
 ) => {
 
+    const displayAuthInfo = authState.isAuth
+        ? <>
+            <p>e-mail: {authState.email}</p>
+            <p>login: {authState.login}</p>
+            <p>userId: {authState.id}</p>
+        </>
+        : <p>You are not authorized</p>
+
+
     return (
         <div className={style.header_wrapper}>
             <img className={style.header_logo} src={logo} alt=""/>
             <p className={style.header_title}>React Social Network</p>
             <div>
-                <p>Your e-mail: {authState.email}</p>
-                <p>Your ID: {authState.id}</p>
-                <p>Your login: {authState.login}</p>
+                {displayAuthInfo}
             </div>
-                <NavLink to={'/login'}>
-                    <button className={style.LogIn_btn}>{authState.isAuth ? `Log out` : `Log in`}</button>
-                </NavLink>
+            <NavLink to={'/login'}>
+                <button className={style.LogIn_btn}>{authState.isAuth ? `Log out` : `Log in`}</button>
+            </NavLink>
 
         </div>
     );

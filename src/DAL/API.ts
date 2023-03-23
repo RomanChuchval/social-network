@@ -33,6 +33,6 @@ export const usersAPI = {
 export const authAPI = {
     authMe() {
        return Instance.get(`auth/me`)
-           .then(response => response.data)
+           .then(response => response)
     }
 }

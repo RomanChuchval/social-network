@@ -10,25 +10,27 @@ import {DialogsContainer} from "./Components/Content/Dialogs/DialogsContainer";
 import UsersPageContainer from "./Components/Content/UsersPage/UsersPageContainer";
 import ProfileContainerComponentWithUrlInfo from "./Components/Content/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
-
+import {Login} from "./Components/Login/Login";
 
 
 function App() {
 
     return (
-            <div className='app_wrapper'>
-                <HeaderContainer/>
-                <NavbarContainer/>
-                <div className='content_wrapper'>
-                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
-                    <Route path={'/profile/:userId'} render={() => <ProfileContainerComponentWithUrlInfo/>}/>
-                    <Route path={'/users'} render={() => <UsersPageContainer/>}/>
-                    <Route path={'/news_feed'} component={NewsFeed}/>
-                    <Route path={'/music'} component={Music}/>
-                    <Route path={'/settings'} component={Settings}/>
-                </div>
-                <Footer/>
+        <div className='app_wrapper'>
+            <HeaderContainer/>
+            <NavbarContainer/>
+            <div className='content_wrapper'>
+                <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                <Route path={'/profile/:userId'} render={() => <ProfileContainerComponentWithUrlInfo/>}/>
+                <Route exact path={'/profile/'} render={() => <ProfileContainerComponentWithUrlInfo/>}/>
+                <Route path={'/users'} render={() => <UsersPageContainer/>}/>
+                <Route path={'/news_feed'} component={NewsFeed}/>
+                <Route path={'/music'} component={Music}/>
+                <Route path={'/settings'} component={Settings}/>
+                <Route path={'/login'} component={Login}/>
             </div>
+            <Footer/>
+        </div>
     );
 }
 

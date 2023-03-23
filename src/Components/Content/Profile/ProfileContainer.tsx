@@ -8,17 +8,22 @@ import {
     updateNewPostTextAC,
 } from "../../../Redux/profile-reducer";
 import {AppStateType} from "../../../Redux/redux-store";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 
 export class ProfileContainer extends React.Component<OwnPropsType> {
 
     componentDidMount() {
         console.log(this.props)
-        this.props.getUserProfileInfoTC(this.props.match.params.userId)
+        let userId = this.props.match.params.userId
+        if (!userId) {
+            userId = '28067'
+        }
+        this.props.getUserProfileInfoTC(userId)
     }
 
     render() {
+        if (!this.props.auth) return <Redirect to={'login'}/>
         return (
             <Profile state={this.props.state}
                      addPostAC={this.props.addPostAC}
@@ -40,6 +45,7 @@ type ProfilePropsType = mapStatePropsType & mapDispatchPropsType
 
 export type mapStatePropsType = {
     state: ProfilePageType
+    auth: boolean
 }
 
 export type mapDispatchPropsType = {
@@ -50,7 +56,8 @@ export type mapDispatchPropsType = {
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
-        state: state.profilePage
+        state: state.profilePage,
+        auth: state.userAuth.isAuth
     }
 }
 

@@ -51,8 +51,9 @@ export const setUserAuthTC = () => {
 
     return (dispatch: Dispatch) => {
         authAPI.authMe()
-            .then(data => {
-                dispatch(setUserAuthAC(data.data))
+            .then(response => {
+                if(response.data.resultCode === 0)
+                dispatch(setUserAuthAC(response.data.data))
             })
     }
 }
