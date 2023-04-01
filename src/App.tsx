@@ -6,11 +6,11 @@ import {NewsFeed} from "./Components/Content/News/News_feed";
 import {Music} from "./Components/Content/Music/Music";
 import {Settings} from "./Components/Content/Settings/Settings";
 import {NavbarContainer} from "./Components/Navbar/NavbarContainer";
-import {DialogsContainer} from "./Components/Content/Dialogs/DialogsContainer";
 import UsersPageContainer from "./Components/Content/UsersPage/UsersPageContainer";
-import ProfileContainerComponentWithUrlInfo from "./Components/Content/Profile/ProfileContainer";
+import ProfileContainerWithUrlInfo from "./Components/Content/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import {Login} from "./Components/Login/Login";
+import {DialogsContainer} from "./Components/Content/Dialogs/Dialogs";
 
 
 function App() {
@@ -21,8 +21,8 @@ function App() {
             <NavbarContainer/>
             <div className='content_wrapper'>
                 <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
-                <Route path={'/profile/:userId'} render={() => <ProfileContainerComponentWithUrlInfo/>}/>
-                <Route exact path={'/profile/'} render={() => <ProfileContainerComponentWithUrlInfo/>}/>
+                <Route path={'/profile/:userId'} render={() => <ProfileContainerWithUrlInfo/>}/>
+                <Route exact path={'/profile/'} render={() => <ProfileContainerWithUrlInfo/>}/>
                 <Route path={'/users'} render={() => <UsersPageContainer/>}/>
                 <Route path={'/news_feed'} component={NewsFeed}/>
                 <Route path={'/music'} component={Music}/>

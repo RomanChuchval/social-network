@@ -7,6 +7,7 @@ import {
     UsersDataType,
 } from "../../../Redux/users-reducer";
 import UsersPageAPI from "./UsersPageAPI";
+import {withAuthRedirect} from "../../../Hoc/withAuthRedirect";
 
 export type UserPagePropsType = MapStatePropsType & MapDispatchPropsType
 
@@ -27,7 +28,9 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
+const usersPageWithAuthRedirect = withAuthRedirect(UsersPageAPI)
+
 export default connect(mapStateToProps, {
     setCurrentPageAC,
     getUsersTC, getNewUsersPageTC, followUserTC, unFollowUserTC
-})(UsersPageAPI)
+})(usersPageWithAuthRedirect)

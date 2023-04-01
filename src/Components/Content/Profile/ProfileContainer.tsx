@@ -1,20 +1,14 @@
 import React from "react";
 import {Profile} from "./Profile";
-
-import {
-    addPostAC,
-    getUserProfileInfoTC,
-    ProfilePageType,
-    updateNewPostTextAC,
-} from "../../../Redux/profile-reducer";
+import {addPostAC, getUserProfileInfoTC, ProfilePageType, updateNewPostTextAC,} from "../../../Redux/profile-reducer";
 import {AppStateType} from "../../../Redux/redux-store";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
+import {withAuthRedirect} from "../../../Hoc/withAuthRedirect";
 
 export class ProfileContainer extends React.Component<OwnPropsType> {
 
     componentDidMount() {
-        console.log(this.props)
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = '28067'
@@ -23,7 +17,6 @@ export class ProfileContainer extends React.Component<OwnPropsType> {
     }
 
     render() {
-        if (!this.props.auth) return <Redirect to={'login'}/>
         return (
             <Profile state={this.props.state}
                      addPostAC={this.props.addPostAC}
@@ -41,11 +34,10 @@ type PathParamsType = {
     userId: string
 }
 
-type ProfilePropsType = mapStatePropsType & mapDispatchPropsType
+type ProfilePropsType = MapStatePropsType & mapDispatchPropsType
 
-export type mapStatePropsType = {
+export type MapStatePropsType = {
     state: ProfilePageType
-    auth: boolean
 }
 
 export type mapDispatchPropsType = {
@@ -54,17 +46,19 @@ export type mapDispatchPropsType = {
     getUserProfileInfoTC: (userId: string) => void
 }
 
-const mapStateToProps = (state: AppStateType): mapStatePropsType => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        state: state.profilePage,
-        auth: state.userAuth.isAuth
+        state: state.profilePage
     }
 }
 
-let ProfileContainerComponentWithUrlInfo = withRouter(ProfileContainer)
+
+
+const profileContainerWithRedirect = withAuthRedirect(ProfileContainer)
+const ProfileContainerWithUrlInfo = withRouter(profileContainerWithRedirect)
 
 export default connect(mapStateToProps, {
     addPostAC,
     getUserProfileInfoTC,
     updateNewPostTextAC,
-})(ProfileContainerComponentWithUrlInfo)
+})(ProfileContainerWithUrlInfo)

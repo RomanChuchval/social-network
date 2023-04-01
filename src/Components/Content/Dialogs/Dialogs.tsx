@@ -2,11 +2,13 @@ import React, {useRef} from 'react';
 import style from './Dialogs.module.css'
 import {DialogsList} from "./DialogsList";
 import {MessageList} from "./MessageList";
-import {DialogsPropsType} from "./DialogsContainer";
-import {Redirect} from "react-router-dom";
-
+import {addMessageAC, DialogsPageType, updateMessageTextAC} from "../../../Redux/dialogs-reducer";
+import {AppStateType} from "../../../Redux/redux-store";
+import {withAuthRedirect} from "../../../Hoc/withAuthRedirect";
+import {connect} from "react-redux";
 
 export const Dialogs = (props: DialogsPropsType) => {
+
     const ref = useRef<HTMLInputElement>(null)
 
     const onClickHandler = () => ref.current !== null && props.addMessageAC()
@@ -15,8 +17,6 @@ export const Dialogs = (props: DialogsPropsType) => {
     let dialogsList = props.state.dialogsList.map(d => <DialogsList key={d.id} id={d.id} name={d.name}
                                                                     avatar={d.avatar} isOnline={d.isOnline}/>)
     let messagesList = props.state.messagesList.map(m => <MessageList key={m.id} id={m.id} message={m.message}/>)
-
-    if (!props.auth) return <Redirect to={'login'}/>
 
     return (
         <div className={style.dialogs_page}>
@@ -39,3 +39,27 @@ export const Dialogs = (props: DialogsPropsType) => {
         </div>
     );
 };
+
+
+// =========== CONTAINER =========== //
+
+
+export type DialogsPropsType = MapStatePropsType & MapDispatchPropsType
+
+export type MapStatePropsType = {
+    state: DialogsPageType
+}
+
+export type MapDispatchPropsType = {
+    addMessageAC: () => void
+    updateMessageTextAC: (messageText: string) => void
+}
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+    return {
+        state: state.dialogsPage,
+    }
+}
+
+const dialogsWithRedirect = withAuthRedirect(Dialogs)
+export const DialogsContainer = connect(mapStateToProps,
+    {addMessageAC, updateMessageTextAC})(dialogsWithRedirect)
