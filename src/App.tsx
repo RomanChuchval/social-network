@@ -10,7 +10,7 @@ import UsersPageContainer from "./Components/Content/UsersPage/UsersPageContaine
 import ProfileContainerWithUrlInfo from "./Components/Content/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import {Login} from "./Components/Login/Login";
-import {DialogsContainer} from "./Components/Content/Dialogs/Dialogs";
+import Dialogs from "./Components/Content/Dialogs/Dialogs";
 
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
             <HeaderContainer/>
             <NavbarContainer/>
             <div className='content_wrapper'>
-                <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                <Route path={'/dialogs'} render={() => <Dialogs/>}/>
                 <Route path={'/profile/:userId'} render={() => <ProfileContainerWithUrlInfo/>}/>
                 <Route exact path={'/profile/'} render={() => <ProfileContainerWithUrlInfo/>}/>
                 <Route path={'/users'} render={() => <UsersPageContainer/>}/>

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {ComponentType, useRef} from 'react';
 import style from './Dialogs.module.css'
 import {DialogsList} from "./DialogsList";
 import {MessageList} from "./MessageList";
@@ -6,6 +6,7 @@ import {addMessageAC, DialogsPageType, updateMessageTextAC} from "../../../Redux
 import {AppStateType} from "../../../Redux/redux-store";
 import {withAuthRedirect} from "../../../Hoc/withAuthRedirect";
 import {connect} from "react-redux";
+import {compose} from "redux";
 
 export const Dialogs = (props: DialogsPropsType) => {
 
@@ -60,6 +61,12 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-const dialogsWithRedirect = withAuthRedirect(Dialogs)
-export const DialogsContainer = connect(mapStateToProps,
-    {addMessageAC, updateMessageTextAC})(dialogsWithRedirect)
+
+export default compose<ComponentType>(
+    connect(mapStateToProps, {addMessageAC, updateMessageTextAC}),
+    withAuthRedirect
+)(Dialogs)
+
+// const dialogsWithRedirect = withAuthRedirect(Dialogs)
+// export const DialogsContainer = connect(mapStateToProps,
+//     {addMessageAC, updateMessageTextAC})(dialogsWithRedirect)
