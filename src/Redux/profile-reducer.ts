@@ -58,11 +58,11 @@ let initialState: ProfilePageType = {
     userProfileInfo: null
 }
 
-export const profileReducer = (state:ProfilePageType = initialState, action: FinalActionType): ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialState, action: FinalActionType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {id: v1(), message: state.newPostText, likesCount: 0}
-            return {...state, newPostText : '', posts: [newPost, ...state.posts]}
+            return {...state, newPostText: '', posts: [newPost, ...state.posts]}
         case UPDATE_NEW_POST_TEXT:
             return {...state, newPostText: action.payload.postText}
         case SET_USER_PROFILE_INFO:
@@ -101,8 +101,8 @@ export const getUserProfileInfoTC = (userId: string) => {
 
     return (dispatch: Dispatch) => {
         usersAPI.getUserProfileInfo(userId)
-            .then(data => {
-                dispatch(setUserProfileInfoAC(data))
+            .then(userProfileInfo => {
+                dispatch(setUserProfileInfoAC(userProfileInfo))
             })
     }
 }

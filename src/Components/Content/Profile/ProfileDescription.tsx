@@ -3,6 +3,7 @@ import style from "./ProfileDescription.module.css";
 import {UserProfileInfoType} from "../../../Redux/profile-reducer";
 import Loader from "../../Common/Loader/Loader";
 import maleAvatar from '../../../assets/ava1.png'
+import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileDescriptionPropsType = {
     userProfileInfo: UserProfileInfoType | null
@@ -21,9 +22,8 @@ export const ProfileDescription = (props: ProfileDescriptionPropsType) => {
                 : maleAvatar} alt="My Avatar"/>
             <div className={style.description}>
                 <h3>{props.userProfileInfo.fullName}</h3>
-                {/*<p>9 February</p>*/}
                 <p>ID: {props.userProfileInfo.userId}</p>
-                <p>{props.userProfileInfo.aboutMe}</p>
+                <ProfileStatus profileInfo={props.userProfileInfo.aboutMe}/>
             </div>
         </div>
     );

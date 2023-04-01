@@ -16,6 +16,7 @@ export const usersAPI = {
             .then(response => response.data)
     },
     getUserProfileInfo(userId: string) {
+
         return Instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(response => response.data)
     },
