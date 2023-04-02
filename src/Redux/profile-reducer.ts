@@ -1,15 +1,17 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
-import {usersAPI} from "../DAL/API";
+import {profileAPI} from "../DAL/API";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE_INFO = 'SET_USER_PROFILE_INFO'
+const SET_USER_STATUS = 'SET_USER_STATUS'
 
 export type FinalActionType =
     ReturnType<typeof addPostAC> |
     ReturnType<typeof updateNewPostTextAC> |
-    ReturnType<typeof setUserProfileInfoAC>
+    ReturnType<typeof setUserProfileInfoAC> |
+    ReturnType<typeof setUserStatusAC>
 
 export type UserProfileInfoType = {
     aboutMe: string
@@ -37,6 +39,7 @@ export type ProfilePageType = {
     posts: PostsType[]
     newPostText: string
     userProfileInfo: UserProfileInfoType | null
+    status: string
 }
 export type PostsType = {
     id: string
@@ -55,7 +58,8 @@ let initialState: ProfilePageType = {
         {id: v1(), message: 'I\'m learning Material UI', likesCount: 55},
     ],
     newPostText: '',
-    userProfileInfo: null
+    userProfileInfo: null,
+    status: ''
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: FinalActionType): ProfilePageType => {
@@ -67,6 +71,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Fi
             return {...state, newPostText: action.payload.postText}
         case SET_USER_PROFILE_INFO:
             return {...state, userProfileInfo: action.payload.userProfileInfo}
+        case SET_USER_STATUS:
+            return {...state, status: action.payload.status}
         default:
             return state
     }
@@ -95,17 +101,49 @@ export const setUserProfileInfoAC = (userProfileInfo: UserProfileInfoType) => {
     } as const
 }
 
+export const setUserStatusAC = (status: string) => {
+    return {
+        type: SET_USER_STATUS,
+        payload: {
+            status
+        }
+    } as const
+}
+
 // ========== ThunkCreators ========== //
 
 export const getUserProfileInfoTC = (userId: string) => {
 
     return (dispatch: Dispatch) => {
-        usersAPI.getUserProfileInfo(userId)
+        profileAPI.getUserProfileInfo(userId)
             .then(userProfileInfo => {
                 dispatch(setUserProfileInfoAC(userProfileInfo))
             })
     }
 }
+
+export const getUserStatusTC = (userId: string) => {
+
+    return (dispatch: Dispatch) => {
+        profileAPI.getUserStatus(userId)
+            .then(status => {
+                dispatch(setUserStatusAC(status))
+            })
+    }
+}
+
+export const updateSelfStatusTC = (status: string) => {
+
+    return (dispatch: Dispatch) => {
+        profileAPI.updateUserStatus(status)
+            .then(data => {
+                if(data.resultCode === 0) {
+                    dispatch(setUserStatusAC(status))
+                }
+            })
+    }
+}
+
 
 
 

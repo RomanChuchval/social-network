@@ -10,6 +10,7 @@ type ProfilePropsType = {
     state: ProfilePageType
     addPostAC: () => void
     updateNewPostTextAC: (postText: string) => void
+    updateSelfStatusTC: (status: string) => void
 }
 
 export const Profile = (props: ProfilePropsType) => {
@@ -20,7 +21,10 @@ export const Profile = (props: ProfilePropsType) => {
     return (
         <div className={style.content_wrapper}>
             <ProfileBackground/>
-            <ProfileDescription userProfileInfo={props.state.userProfileInfo}/>
+            <ProfileDescription userProfileInfo={props.state.userProfileInfo}
+                                userStatus={props.state.status}
+                                updateSelfStatusTC={props.updateSelfStatusTC}
+            />
             <AddNewPost newPostText={props.state.newPostText}
                         addPostCallbackAC={addPostCallbackAC}
                         updatePostTextCallbackAC={updatePostTextCallbackAC}

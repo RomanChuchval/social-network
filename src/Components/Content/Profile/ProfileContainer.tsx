@@ -1,6 +1,12 @@
 import React, {ComponentType} from "react";
 import {Profile} from "./Profile";
-import {addPostAC, getUserProfileInfoTC, ProfilePageType, updateNewPostTextAC,} from "../../../Redux/profile-reducer";
+import {
+    addPostAC,
+    getUserProfileInfoTC,
+    getUserStatusTC,
+    ProfilePageType,
+    updateNewPostTextAC, updateSelfStatusTC,
+} from "../../../Redux/profile-reducer";
 import {AppStateType} from "../../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
@@ -15,6 +21,7 @@ export class ProfileContainer extends React.Component<OwnPropsType> {
             userId = '28067'
         }
         this.props.getUserProfileInfoTC(userId)
+        this.props.getUserStatusTC(userId)
     }
 
     render() {
@@ -22,6 +29,7 @@ export class ProfileContainer extends React.Component<OwnPropsType> {
             <Profile state={this.props.state}
                      addPostAC={this.props.addPostAC}
                      updateNewPostTextAC={this.props.updateNewPostTextAC}
+                     updateSelfStatusTC={this.props.updateSelfStatusTC}
             />
         )
     }
@@ -45,6 +53,8 @@ export type mapDispatchPropsType = {
     addPostAC: () => void
     updateNewPostTextAC: (postText: string) => void
     getUserProfileInfoTC: (userId: string) => void
+    getUserStatusTC: (userId: string) => void
+    updateSelfStatusTC: (status: string) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
@@ -55,7 +65,11 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {addPostAC, getUserProfileInfoTC, updateNewPostTextAC}),
+    connect(mapStateToProps, {addPostAC,
+        getUserProfileInfoTC,
+        updateNewPostTextAC,
+        getUserStatusTC,
+        updateSelfStatusTC}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)
