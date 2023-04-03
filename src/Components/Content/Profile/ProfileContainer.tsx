@@ -21,7 +21,7 @@ export class ProfileContainer extends React.Component<OwnPropsType> {
             userId = '28067'
         }
         this.props.getUserProfileInfoTC(userId)
-        this.props.getUserStatusTC(userId)
+            this.props.getUserStatusTC(userId)
     }
 
     render() {

@@ -13,6 +13,12 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
         this.props.setUserAuthTC()
     }
 
+    componentDidUpdate(prevProps: Readonly<HeaderContainerPropsType>, prevState: Readonly<{}>) {
+        if(prevProps.authState.isAuth !== this.props.authState.isAuth) {
+            this.props.setUserAuthTC()
+        }
+    }
+
     render() {
         return (
             <Header {...this.props} />

@@ -3,6 +3,8 @@ import style from './Header.module.css'
 import logo from '../../assets/network_logo.png'
 import {MapDispatchToProps, MapStateToPropsType} from "./HeaderContainer";
 import {NavLink} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {logoutUserTC} from "../../Redux/auth-reducer";
 
 
 type HeaderPropsType = MapStateToPropsType & MapDispatchToProps
@@ -11,6 +13,11 @@ export const Header: React.FC<HeaderPropsType> = (
         authState
     }
 ) => {
+
+    const dispatch = useDispatch()
+    const onLogoutHandler = () => {
+        dispatch(logoutUserTC())
+    }
 
     const displayAuthInfo = authState.isAuth
         ? <>
@@ -29,7 +36,7 @@ export const Header: React.FC<HeaderPropsType> = (
                 {displayAuthInfo}
             </div>
             <NavLink to={'/login'}>
-                <button className={style.LogIn_btn}>{authState.isAuth ? `Log out` : `Log in`}</button>
+                <button onClick={onLogoutHandler}  className={style.LogIn_btn}>{authState.isAuth ? `Log out` : `Log in`}</button>
             </NavLink>
 
         </div>

@@ -27,3 +27,21 @@
     border: 1px solid #178513;
 }
 
+.loginForm_wrapper {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.submit_btn{
+    background-color: #1d72f2;
+    color: #FFFFFF;
+    width: 70px;
+    height: 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
