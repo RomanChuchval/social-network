@@ -13,7 +13,6 @@ export const Header: React.FC<HeaderPropsType> = (
         authState
     }
 ) => {
-
     const dispatch = useDispatch()
     const onLogoutHandler = () => {
         dispatch(logoutUserTC())

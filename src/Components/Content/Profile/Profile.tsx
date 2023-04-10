@@ -8,14 +8,14 @@ import {ProfilePageType} from "../../../Redux/profile-reducer";
 
 type ProfilePropsType = {
     state: ProfilePageType
-    addPostAC: () => void
+    addPostAC: (message: string) => void
     updateNewPostTextAC: (postText: string) => void
     updateSelfStatusTC: (status: string) => void
 }
 
 export const Profile = (props: ProfilePropsType) => {
 
-    const addPostCallbackAC = () => props.addPostAC()
+    const addPostCallbackAC = (message: string) => props.addPostAC(message)
     const updatePostTextCallbackAC = (postText: string) => props.updateNewPostTextAC(postText)
 
     return (

@@ -1,5 +1,5 @@
 import {addPostAC, updateNewPostTextAC} from "./profile-reducer";
-import {addMessageAC, updateMessageTextAC} from "./dialogs-reducer";
+import {addMessageAC} from "./dialogs-reducer";
 
 // export type StateType = {
 //     profilePage: ProfilePageType

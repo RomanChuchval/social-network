@@ -35,7 +35,7 @@
     border-radius: 10px;
     padding: 10px;
     outline: none;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
 }
 
 .dialogs_send_button {
@@ -49,4 +49,9 @@
     margin-right: 15px;
     cursor: pointer;
     background-color: #1da1f2;
+}
+
+.error_input_field{
+    height: 20px;
+    color: orangered;
 }

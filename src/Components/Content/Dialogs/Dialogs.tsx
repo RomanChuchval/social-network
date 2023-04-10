@@ -1,19 +1,15 @@
-import React, {ComponentType, useRef} from 'react';
+import React, {ComponentType} from 'react';
 import style from './Dialogs.module.css'
 import {DialogsList} from "./DialogsList";
 import {MessageList} from "./MessageList";
-import {addMessageAC, DialogsPageType, updateMessageTextAC} from "../../../Redux/dialogs-reducer";
+import {addMessageAC, DialogsPageType} from "../../../Redux/dialogs-reducer";
 import {AppStateType} from "../../../Redux/redux-store";
 import {withAuthRedirect} from "../../../Hoc/withAuthRedirect";
 import {connect} from "react-redux";
 import {compose} from "redux";
+import {MessageSendForm} from "./MessageSendForm";
 
 export const Dialogs = (props: DialogsPropsType) => {
-
-    const ref = useRef<HTMLInputElement>(null)
-
-    const onClickHandler = () => ref.current !== null && props.addMessageAC()
-    const onChangeHandler = () => ref.current !== null && props.updateMessageTextAC(ref.current.value)
 
     let dialogsList = props.state.dialogsList.map(d => <DialogsList key={d.id} id={d.id} name={d.name}
                                                                     avatar={d.avatar} isOnline={d.isOnline}/>)
@@ -21,16 +17,7 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     return (
         <div className={style.dialogs_page}>
-            <div className={style.dialogs_message_sender}>
-                <input
-                    onChange={onChangeHandler}
-                    ref={ref}
-                    value={props.state.newMessageText}
-                    placeholder={'Type message...'}
-                    className={style.dialogs_input}/>
-
-                <button onClick={onClickHandler} className={style.dialogs_send_button}>Send</button>
-            </div>
+           <MessageSendForm addPost={props.addMessageAC} />
             <div className={style.dialogs_list}>
                 {dialogsList}
             </div>
@@ -52,8 +39,7 @@ export type MapStatePropsType = {
 }
 
 export type MapDispatchPropsType = {
-    addMessageAC: () => void
-    updateMessageTextAC: (messageText: string) => void
+    addMessageAC: (message: string) => void
 }
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
@@ -63,7 +49,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {addMessageAC, updateMessageTextAC}),
+    connect(mapStateToProps, {addMessageAC}),
     withAuthRedirect
 )(Dialogs)
 

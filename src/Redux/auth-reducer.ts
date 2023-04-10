@@ -1,7 +1,8 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../DAL/API";
+import {AppThunkType} from "./redux-store";
 
-type ActionsType = SetUserAuthAT | LoginUserAT | LogoutUserAT
+type ActionsType = SetUserAuthAT | LogoutUserAT | InitializationAppAT
 
 
 export type AuthStateType = {
@@ -9,12 +10,14 @@ export type AuthStateType = {
     login: string | null,
     email: string | null,
     isAuth: boolean
+    initialization: boolean
 }
 const initialState: AuthStateType = {
     id: null,
     login: null,
     email: null,
     isAuth: false,
+    initialization: false
 }
 
 export const authReducer = (state: AuthStateType = initialState, action: ActionsType): AuthStateType => {
@@ -28,15 +31,15 @@ export const authReducer = (state: AuthStateType = initialState, action: Actions
                 email: action.payload.data.email,
                 isAuth: true
             }
-        case LOGIN_USER:
-            return {
-                ...state,
-                isAuth: true
-            }
         case LOGOUT_USER:
             return {
                 ...state,
                 isAuth: false
+            }
+        case INITIALIZATION:
+            return {
+                ...state,
+                initialization: action.payload.status
             }
     }
     return state
@@ -44,12 +47,12 @@ export const authReducer = (state: AuthStateType = initialState, action: Actions
 
 
 type SetUserAuthAT = ReturnType<typeof setUserAuthAC>
-type LoginUserAT = ReturnType<typeof loginUserAC>
 type LogoutUserAT = ReturnType<typeof logoutUserAC>
+type InitializationAppAT = ReturnType<typeof setAppInitializationAC>
 
 const SET_USER_AUTH = 'SET_USER_AUTH'
-const LOGIN_USER = 'LOGIN_USER'
 const LOGOUT_USER = 'LOGOUT_USER'
+const INITIALIZATION = 'INITIALIZATION'
 
 export const setUserAuthAC = (data: AuthStateType) => {
     return {
@@ -60,37 +63,39 @@ export const setUserAuthAC = (data: AuthStateType) => {
     } as const
 }
 
-export const loginUserAC = () => {
-    return {
-        type: LOGIN_USER
-    } as const
-}
-
 export const logoutUserAC = () => {
     return {
         type: LOGOUT_USER
     } as const
 }
 
+export const setAppInitializationAC = (status: boolean) => (
+    {
+        type: INITIALIZATION,
+        payload: {status}
+    } as const
+)
+
+
 // ================= Thunk creators ================= //
 
 
-export const setUserAuthTC = () => {
-    return (dispatch: Dispatch) => {
-        authAPI.authMe()
-            .then(response => {
-                if (response.data.resultCode === 0)
-                    dispatch(setUserAuthAC(response.data.data))
-            })
+export const setUserAuthTC = () => async (dispatch: Dispatch) => {
+    dispatch(setAppInitializationAC(true))
+    const authMeData = await authAPI.authMe()
+    if (authMeData.data.resultCode === 0) {
+        dispatch(setUserAuthAC(authMeData.data.data))
     }
+        dispatch(setAppInitializationAC(false))
 }
 
-export const loginUserTC = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: Dispatch) => {
+
+export const loginUserTC = (email: string, password: string, rememberMe: boolean): AppThunkType => {
+    return (dispatch) => {
         authAPI.authLogin(email, password, rememberMe)
             .then(data => {
                 if (data.resultCode === 0)
-                    dispatch(loginUserAC())
+                    dispatch(setUserAuthTC())
             })
     }
 }
@@ -100,7 +105,7 @@ export const loginUserTC = (email: string, password: string, rememberMe: boolean
 export const logoutUserTC = () => {
     return (dispatch: Dispatch) => {
         authAPI.authLogOut()
-            .then( () => dispatch(logoutUserAC()))
+            .then(() => dispatch(logoutUserAC()))
     }
 }
 

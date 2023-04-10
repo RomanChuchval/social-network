@@ -13,7 +13,8 @@
 }
 
 .add_post_input {
-
+    padding: 10px;
+    outline: none;
 }
 
 .add_post_button {
@@ -24,4 +25,9 @@
     height: 25px;
     cursor: pointer;
     justify-self: center;
+}
+
+.error_message{
+    height: 20px;
+    color: orangered;
 }

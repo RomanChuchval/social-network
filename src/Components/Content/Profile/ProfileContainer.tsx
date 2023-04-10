@@ -18,7 +18,7 @@ export class ProfileContainer extends React.Component<OwnPropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '28067'
+            userId = this.props.authUserId!.toString()
         }
         this.props.getUserProfileInfoTC(userId)
             this.props.getUserStatusTC(userId)
@@ -47,10 +47,12 @@ type ProfilePropsType = MapStatePropsType & mapDispatchPropsType
 
 export type MapStatePropsType = {
     state: ProfilePageType
+    authMe: boolean
+    authUserId: number | null
 }
 
 export type mapDispatchPropsType = {
-    addPostAC: () => void
+    addPostAC: (message: string) => void
     updateNewPostTextAC: (postText: string) => void
     getUserProfileInfoTC: (userId: string) => void
     getUserStatusTC: (userId: string) => void
@@ -59,7 +61,9 @@ export type mapDispatchPropsType = {
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        state: state.profilePage
+        state: state.profilePage,
+        authMe: state.userAuth.isAuth,
+        authUserId: state.userAuth.id
     }
 }
 

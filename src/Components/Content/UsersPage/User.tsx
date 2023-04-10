@@ -34,8 +34,7 @@ const User: React.FC<UserPropsType> = (
                 </div>
                 <div>
                     {userData.followed
-                        ? <button disabled={isButtonDisable} className={s.btn_unfollow}
-                                  onClick={onUnFollowHandler}>Unfollow</button>
+                        ? <button disabled={isButtonDisable} className={s.btn_unfollow} onClick={onUnFollowHandler}>Unfollow</button>
                         : <button disabled={isButtonDisable} className={s.btn_follow} onClick={onFollowHandler}>Follow</button>
                     }
                 </div>

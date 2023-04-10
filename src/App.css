@@ -38,7 +38,7 @@ ul {
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
-    min-height: 1080px;
+    min-height: 100vh;
     margin: 0 10px 0 10px;
     background-color: #e1e8ed ;
     display: grid;
@@ -46,10 +46,19 @@ ul {
     grid-template-columns: 1fr 4fr;
     gap: 15px;
     border: solid 2px black;
+}
 
+.app_initialization_wrapper{
+    background-color: #e1e8ed ;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .content_wrapper {
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0 4px 8px -2px, rgba(9, 30, 66, 0.08) 0 0 0 1px;
 }
 

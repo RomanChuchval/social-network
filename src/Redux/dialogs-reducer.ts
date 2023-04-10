@@ -5,8 +5,6 @@ import avatar2 from "../assets/ava2.png";
 export type DialogsPageType = {
     dialogsList: DialogsListType[],
     messagesList: MessagesListType[]
-    newMessageText: string
-
 }
 export type DialogsListType = {
     id: string
@@ -19,12 +17,8 @@ export type MessagesListType = {
     message: string
 }
 
-export type FinalActionType =
-    ReturnType<typeof updateMessageTextAC> |
-    ReturnType<typeof addMessageAC>
+export type FinalActionType = ReturnType<typeof addMessageAC>
 
-
-const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'
 const ADD_MESSAGE = 'ADD-MESSAGE'
 
 
@@ -44,32 +38,23 @@ let initialState: DialogsPageType = {
         {id: v1(), message: 'TypeScript'},
         {id: v1(), message: 'MaterialUI'},
     ],
-    newMessageText: ''
 }
 
 const dialogsReducer = (state: DialogsPageType = initialState, action: FinalActionType): DialogsPageType => {
 
     switch (action.type) {
-        case UPDATE_MESSAGE_TEXT:
-            return {...state, newMessageText: action.payload.messageText}
         case ADD_MESSAGE:
-            let newMessage = {id: v1(), message: state.newMessageText}
-            return {...state, newMessageText:'', messagesList: [newMessage,...state.messagesList]}
+            let newMessage = {id: v1(), message: action.payload.message}
+            return {...state, messagesList: [newMessage, ...state.messagesList]}
         default:
             return state
     }
 }
-
-export const updateMessageTextAC = (messageText: string) => {
+export const addMessageAC = (message: string) => {
     return {
-        type: UPDATE_MESSAGE_TEXT,
-        payload: {
-            messageText
-        }
+        type: ADD_MESSAGE,
+        payload: {message}
     } as const
-}
-export const addMessageAC = () => {
-    return {type: ADD_MESSAGE} as const
 }
 
 export default dialogsReducer;

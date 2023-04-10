@@ -65,7 +65,7 @@ let initialState: ProfilePageType = {
 export const profileReducer = (state: ProfilePageType = initialState, action: FinalActionType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
-            let newPost = {id: v1(), message: state.newPostText, likesCount: 0}
+            let newPost = {id: v1(), message: action.payload.newMessage, likesCount: 0}
             return {...state, newPostText: '', posts: [newPost, ...state.posts]}
         case UPDATE_NEW_POST_TEXT:
             return {...state, newPostText: action.payload.postText}
@@ -86,9 +86,10 @@ export const updateNewPostTextAC = (postText: string) => {
         }
     } as const
 }
-export const addPostAC = () => {
+export const addPostAC = (newMessage: string) => {
     return {
-        type: ADD_POST
+        type: ADD_POST,
+        payload: {newMessage}
     } as const
 }
 

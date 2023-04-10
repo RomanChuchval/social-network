@@ -9,15 +9,9 @@ type HeaderContainerPropsType = MapStateToPropsType & MapDispatchToProps
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 
-    componentDidMount() {
-        this.props.setUserAuthTC()
-    }
-
-    componentDidUpdate(prevProps: Readonly<HeaderContainerPropsType>, prevState: Readonly<{}>) {
-        if(prevProps.authState.isAuth !== this.props.authState.isAuth) {
-            this.props.setUserAuthTC()
-        }
-    }
+    // componentDidMount() {
+    //     this.props.setUserAuthTC()
+    // }
 
     render() {
         return (
@@ -25,7 +19,6 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
         )
     }
 }
-
 
 // ========== Container ========== //
 
