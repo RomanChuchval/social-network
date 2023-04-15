@@ -4,17 +4,29 @@ import {
     followUserTC, getNewUsersPageTC, getUsersTC,
     setCurrentPageAC,
     unFollowUserTC,
-    UsersDataType,
+    UserType,
 } from "../../../Redux/users-reducer";
 import UsersPageAPI from "./UsersPageAPI";
 import {withAuthRedirect} from "../../../Hoc/withAuthRedirect";
 import {compose} from "redux";
 import {ComponentType} from "react";
+import {
+    getFollowingStatus, getLoadingStatus,
+    getPageNumber,
+    getTotalUsersCount,
+    getUsers,
+    getUsersOnPageCount
+} from "../../../Redux/selectors/user-selectors";
 
 export type UserPagePropsType = MapStatePropsType & MapDispatchPropsType
 
 type MapStatePropsType = {
-    usersPage: UsersDataType
+    users: Array<UserType>
+    totalUsersCount: number
+    usersOnPage: number
+    page: number,
+    isFollowing: number[]
+    isLoading: boolean
 }
 
 export type MapDispatchPropsType = {
@@ -26,7 +38,12 @@ export type MapDispatchPropsType = {
 }
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        usersPage: state.usersPage
+        users: getUsers(state),
+        totalUsersCount: getTotalUsersCount(state),
+        usersOnPage: getUsersOnPageCount(state),
+        page: getPageNumber(state),
+        isFollowing: getFollowingStatus(state),
+        isLoading: getLoadingStatus(state)
     }
 }
 

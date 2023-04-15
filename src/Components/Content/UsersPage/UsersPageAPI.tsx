@@ -7,7 +7,7 @@ import s from './UsersPageAPI.module.css'
 class UsersPageAPI extends React.Component<UserPagePropsType> {
 
     componentDidMount() {
-        this.props.getUsersTC(this.props.usersPage.usersOnPage, this.props.usersPage.currentPage)
+        this.props.getUsersTC(this.props.usersOnPage, this.props.page)
     }
 
     componentWillUnmount() {
@@ -15,23 +15,23 @@ class UsersPageAPI extends React.Component<UserPagePropsType> {
     }
 
     getNewUsersPage = (pageNumber: number) => {
-        this.props.getNewUsersPageTC(pageNumber, this.props.usersPage.usersOnPage)
+        this.props.getNewUsersPageTC(pageNumber, this.props.usersOnPage)
     }
 
     render() {
         return (
-            this.props.usersPage.isLoading
+            this.props.isLoading
                 ? <div className={s.loader_container}>
                     <Loader/>
                 </div>
-                : <UsersPage users={this.props.usersPage.users}
+                : <UsersPage users={this.props.users}
+                             totalUsersCount={this.props.totalUsersCount}
+                             usersOnPage={this.props.usersOnPage}
+                             currentPage={this.props.page}
+                             isFollowing={this.props.isFollowing}
                              follow={this.props.followUserTC}
                              unfollow={this.props.unFollowUserTC}
-                             totalUsersCount={this.props.usersPage.totalUsersCount}
-                             usersOnPage={this.props.usersPage.usersOnPage}
-                             currentPage={this.props.usersPage.currentPage}
                              getNewUsersPage={this.getNewUsersPage}
-                             isFollowing={this.props.usersPage.isFollowing}
                 />
         )
     }
