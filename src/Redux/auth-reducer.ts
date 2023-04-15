@@ -10,14 +10,14 @@ export type AuthStateType = {
     login: string | null,
     email: string | null,
     isAuth: boolean
-    initialization: boolean
+    initialized: boolean
 }
 const initialState: AuthStateType = {
     id: null,
     login: null,
     email: null,
     isAuth: false,
-    initialization: false
+    initialized: false
 }
 
 export const authReducer = (state: AuthStateType = initialState, action: ActionsType): AuthStateType => {
@@ -39,7 +39,7 @@ export const authReducer = (state: AuthStateType = initialState, action: Actions
         case INITIALIZATION:
             return {
                 ...state,
-                initialization: action.payload.status
+                initialized: action.payload.status
             }
     }
     return state
@@ -76,19 +76,16 @@ export const setAppInitializationAC = (status: boolean) => (
     } as const
 )
 
-
 // ================= Thunk creators ================= //
 
-
 export const setUserAuthTC = () => async (dispatch: Dispatch) => {
-    dispatch(setAppInitializationAC(true))
+    // dispatch(setAppInitializationAC(true))
     const authMeData = await authAPI.authMe()
     if (authMeData.data.resultCode === 0) {
         dispatch(setUserAuthAC(authMeData.data.data))
     }
-        dispatch(setAppInitializationAC(false))
+        dispatch(setAppInitializationAC(true))
 }
-
 
 export const loginUserTC = (email: string, password: string, rememberMe: boolean): AppThunkType => {
     return (dispatch) => {
@@ -99,9 +96,6 @@ export const loginUserTC = (email: string, password: string, rememberMe: boolean
             })
     }
 }
-
-// qwerqaz
-
 export const logoutUserTC = () => {
     return (dispatch: Dispatch) => {
         authAPI.authLogOut()

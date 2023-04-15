@@ -21,7 +21,7 @@ export class ProfileContainer extends React.Component<OwnPropsType> {
             userId = this.props.authUserId!.toString()
         }
         this.props.getUserProfileInfoTC(userId)
-            this.props.getUserStatusTC(userId)
+        this.props.getUserStatusTC(userId)
     }
 
     render() {
@@ -69,11 +69,13 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {addPostAC,
+    connect(mapStateToProps, {
+        addPostAC,
         getUserProfileInfoTC,
         updateNewPostTextAC,
         getUserStatusTC,
-        updateSelfStatusTC}),
+        updateSelfStatusTC
+    }),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)

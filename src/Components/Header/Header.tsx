@@ -1,13 +1,13 @@
 import React from 'react';
 import style from './Header.module.css'
 import logo from '../../assets/network_logo.png'
-import {MapDispatchToProps, MapStateToPropsType} from "./HeaderContainer";
+import {MapStateToPropsType} from "./HeaderContainer";
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {logoutUserTC} from "../../Redux/auth-reducer";
 
 
-type HeaderPropsType = MapStateToPropsType & MapDispatchToProps
+type HeaderPropsType = MapStateToPropsType
 export const Header: React.FC<HeaderPropsType> = (
     {
         authState

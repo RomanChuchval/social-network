@@ -8,7 +8,6 @@ import {loginUserTC} from "../../Redux/auth-reducer";
 
 
 export const Login = () => {
-
     const isAuth = useSelector<AppStateType, boolean>(state => state.userAuth.isAuth)
 
     if (isAuth) return <Redirect to={'/profile'}/>

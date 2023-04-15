@@ -20,27 +20,26 @@ import Loader from "./Components/Common/Loader/Loader";
 function App() {
 
     const dispatch = useDispatch()
-    const initializationApp = useSelector<AppStateType, boolean>(state => state.userAuth.initialization)
+    const initializationApp = useSelector<AppStateType, boolean>(state => state.userAuth.initialized)
 
     useEffect(() => {
         dispatch(setUserAuthTC())
     }, [])
 
     return (
-        <div className={`${initializationApp ? `app_initialization_wrapper` : `app_wrapper`}`}>
-            {initializationApp
+        <div className={`${!initializationApp ? `app_initialization_wrapper` : `app_wrapper`}`}>
+            {!initializationApp
                 ? <div className='app_initialization_wrapper'>
-                    <div>Wait a second ;)</div>
+                    <div>Initialization</div>
                     <Loader/>
                 </div>
                 : <>
                     <HeaderContainer/>
                     <NavbarContainer/>
                     <div className='content_wrapper'>
-                        <Route path={'/dialogs'} render={() => <Dialogs/>}/>
-                        <Route path={'/profile/:userId'} render={() => <ProfileContainerWithUrlInfo/>}/>
-                        <Route exact path={`/profile`} render={() => <ProfileContainerWithUrlInfo/>}/>
-                        <Route path={'/users'} render={() => <UsersPageContainer/>}/>
+                        <Route path={'/dialogs'} component={Dialogs}/>
+                        <Route path={'/profile/:userId?'} component={ProfileContainerWithUrlInfo}/>
+                        <Route path={'/users'} component={UsersPageContainer}/>
                         <Route path={'/news_feed'} component={NewsFeed}/>
                         <Route path={'/music'} component={Music}/>
                         <Route path={'/settings'} component={Settings}/>
